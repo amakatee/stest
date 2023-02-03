@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import navdata from '../../data/statusNav.json'
-import PackageNavItem from '../elements/packageNavItem'
+// import PackageNavItem from '../elements/PackageNavItem'
+import PackageNavItem from '../elements/PackageNavItem'
 
 
 interface Props {
