@@ -1,7 +1,6 @@
 
 
 import { useRouter } from 'next/router'
-import { StringSchemaDefinition } from 'mongoose'
 import React, { FunctionComponent } from 'react'
 
 type Props = {
