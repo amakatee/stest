@@ -1,0 +1,61 @@
+import { createContext } from "react";
+import { useContext } from "react";
+import { useContract, useAddress, useMetamask,useContractWrite } from "@thirdweb-dev/react";
+
+interface ContextType  {
+    address: string | undefined,
+    contract: any,
+    a: string | undefined,
+    createCampaign: any,
+
+}
+const StateContext = createContext<any>({})
+
+
+export const StateContextProvider = ({children} : any) => {
+    const {contract } = useContract('0x2A88855B95C7c2a2a9b56365996c62000793fb67')
+
+    const {mutateAsync: createCampaign} = useContractWrite(contract, 'createCampaign') 
+    const address = useAddress()
+    const connect = useMetamask()
+    const a = "3ds"
+
+    const publishCampaign = async (form:any) =>{
+
+        try {
+            const data = await createCampaign([
+                address, //owner
+                form.title,
+                form.description,
+                form.target,
+                new Date(form.deadline).getTime(),
+                form.image
+    
+            ])
+            console.log("Created succesfully", data)
+
+        } catch(err){
+            console.log("Fail" , err)
+        }
+       
+    }
+
+    return (
+     <StateContext.Provider value={{
+         address,
+         contract,
+         connect,
+         
+         a,
+         createCampaign: publishCampaign
+
+     }}>
+         {children}
+        
+    </StateContext.Provider>
+    )
+
+}
+
+ export const useStateContext = () => useContext(StateContext)
+// export default StateContext
