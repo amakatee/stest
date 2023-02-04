@@ -87,7 +87,7 @@ const Home: NextPage = () => {
 
 
  
-  const handleSubmit = async (event: any) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
   await createCampaign({...form, target: ethers.utils.parseUnits(form.target, 18) })
 
@@ -109,7 +109,7 @@ const Home: NextPage = () => {
         }
       }}>{address ?  'Disonnect' : 'Connect'}</button>
       <main>
-        <form onSubmit={(event : any) => {
+        <form onSubmit={(event : React.FormEvent) => {
           event.preventDefault()
           console.log("hello")
        
@@ -120,12 +120,12 @@ const Home: NextPage = () => {
         }}>
         <input 
         placeholder="token"
-        onChange={(e) => setFormaData({...formData, token: e.target.value}) }
+        onChange={(e :any) => setFormaData({...formData, token: e.target.value}) }
 
         />
         <input 
         placeholder="name"
-        onChange={(e) => setFormaData({...formData, name: e.target.value}) }
+        onChange={(e : any) => setFormaData({...formData, name: e.target.value}) }
         />
         <button type="submit">Submiy</button>
 

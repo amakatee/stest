@@ -27,20 +27,20 @@ const StateContext = createContext<any>({})
 export const StateContextProvider = ({children} : any) => {
     const {contract } = useContract('0x2A88855B95C7c2a2a9b56365996c62000793fb67')
 
-    const {mutateAsync: createCampaign} = useContractWrite(contract, 'createCampaign') 
+    const {mutateAsync: createCampaign  } = useContractWrite(contract, 'createCampaign') 
     const address : string | undefined = useAddress()
-    const connect : () => Promise<{
-        data?: any | undefined;
+    const connect: () => Promise<{
+        data?: import("wagmi").ConnectorData<any> | undefined;
         error?: Error | undefined;
     } | {
         error: Error;
     }> = useMetamask()
  
 
-    const publishCampaign = async (form:any) =>{
+    const publishCampaign = async (form : any ) =>{
 
         try {
-            const data :any   = await createCampaign([
+            const data:any   = await createCampaign([
                 address , //owner
                 form.title,
                 form.description,
