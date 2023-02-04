@@ -34,7 +34,7 @@ interface Token {
   token: string | undefined
 }
 const Home: NextPage = () => {
-  const {a, createCampaign, connect, address} = useStateContext()
+  const { createCampaign, connect, address} = useStateContext()
 
   const utils = api.useContext();
   const [form, setForm] = useState<PaymentForm>({

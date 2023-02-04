@@ -16,9 +16,14 @@ export const StateContextProvider = ({children} : any) => {
     const {contract } = useContract('0x2A88855B95C7c2a2a9b56365996c62000793fb67')
 
     const {mutateAsync: createCampaign} = useContractWrite(contract, 'createCampaign') 
-    const address = useAddress()
-    const connect = useMetamask()
-    const a = "3ds"
+    const address : string | undefined = useAddress()
+    const connect : () => Promise<{
+        data?: any | undefined;
+        error?: Error | undefined;
+    } | {
+        error: Error;
+    }> = useMetamask()
+ 
 
     const publishCampaign = async (form:any) =>{
 
@@ -46,7 +51,7 @@ export const StateContextProvider = ({children} : any) => {
          contract,
          connect,
          
-         a,
+         
          createCampaign: publishCampaign
 
      }}>

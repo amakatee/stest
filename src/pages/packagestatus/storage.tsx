@@ -2,7 +2,6 @@ import { type NextPage } from "next";
 import { useStateContext } from "../../context/StateContext";
 import Layout from "../../components/packagepage/Layout";
 const Storage : NextPage = () => {
-    const {a, createCampaign, connect, address} = useStateContext()
 
 
     return (
