@@ -55,15 +55,10 @@ const Home: NextPage = () => {
   })
 
 
-  const [currentToken, setCurrentToken ] = useState <string | undefined>('')
-  // const hello = api.example.hello.useQuery({ text: "from tRPC" });
   
 
   const {data: allUsers, isLoading} = api?.users?.allUsers?.useQuery( 
-    // onSuccess: (data: any) => {
-    //   console.log(data)
-  
-    //  }
+   
     
   )
  const addUser = api?.users?.newUser?.useMutation({
@@ -106,7 +101,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <button onClick={async () => {
-        if(address){
+        if(address ){
           console.log('as')
          
         } else{
@@ -114,7 +109,7 @@ const Home: NextPage = () => {
         }
       }}>{address ?  'Disonnect' : 'Connect'}</button>
       <main>
-        <form onSubmit={(event) => {
+        <form onSubmit={(event : any) => {
           event.preventDefault()
           console.log("hello")
        

@@ -3,6 +3,7 @@
 import { useRouter } from 'next/router'
 import React, { FunctionComponent } from 'react'
 
+
 type Props = {
     title: string,
     link: string,
@@ -12,11 +13,10 @@ type Props = {
   
 
 const PackageNavItem: React.FC<Props> = ({  title, link, active }) => {
-    const router =useRouter()
+    const router=useRouter()
     
     return (
-      
-      <li onClick={() => router.push(`${link}`)} className={router.asPath === `/packagestatus/${link}` ? 'ls active' : 'ls '}>
+       <li onClick={() => router.push(`${link}`)} className={router.asPath === `/packagestatus/${link}` ? 'ls active' : 'ls '}>
           {title}
  
           </li>)

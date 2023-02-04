@@ -2,11 +2,23 @@ import { createContext } from "react";
 import { useContext } from "react";
 import { useContract, useAddress, useMetamask,useContractWrite } from "@thirdweb-dev/react";
 
+
 interface ContextType  {
     address: string | undefined,
     contract: any,
     a: string | undefined,
     createCampaign: any,
+
+}
+
+interface CampaigneInfo {
+    address: string, 
+    title: string,
+    description: string,
+    target: any,
+    data:   string | number | Date,
+    image: string | undefined
+ 
 
 }
 const StateContext = createContext<any>({})
@@ -28,8 +40,8 @@ export const StateContextProvider = ({children} : any) => {
     const publishCampaign = async (form:any) =>{
 
         try {
-            const data = await createCampaign([
-                address, //owner
+            const data :any   = await createCampaign([
+                address , //owner
                 form.title,
                 form.description,
                 form.target,
