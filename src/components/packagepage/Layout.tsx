@@ -10,10 +10,7 @@ interface Props {
 export default function Layout({ children } : Props) {
     const router = useRouter()
 
-    const changePage : (link: string) => void = (link: string) => {
-      router.push(link)
-    }
-
+  
 
   return (
     <>
@@ -22,7 +19,7 @@ export default function Layout({ children } : Props) {
         <main className="package-page">
             <ul className="main-menu">
                 
-                {navdata.map((data, i) => <PackageNavItem key={i} title={data.title} link={data.link} active={  router.asPath === data.link  ? data.active : !data.active} changePage={changePage} /> )}
+                {navdata.map((data, i) => <PackageNavItem key={i} title={data.title} link={data.link} active={  router.asPath === data.link  ? data.active : !data.active} /> )}
                
             </ul>
             <div className="main-window">
