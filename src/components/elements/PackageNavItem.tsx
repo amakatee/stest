@@ -1,7 +1,7 @@
 
 
-import { useRouter } from 'next/router'
-import React, { FunctionComponent } from 'react'
+import { NextRouter, useRouter } from 'next/router'
+import React from 'react'
 
 
 type Props = {
@@ -13,13 +13,11 @@ type Props = {
   
 
 const PackageNavItem: React.FC<Props> = ({  title, link, active }) => {
-    const router=useRouter()
-    
+    const router : NextRouter = useRouter()
     return (
        <li onClick={() => router.push(`${link}`)} className={router.asPath === `/packagestatus/${link}` ? 'ls active' : 'ls '}>
           {title}
- 
-          </li>)
+       </li>)
   
   
     }
