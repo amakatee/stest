@@ -1,25 +1,21 @@
-
-
-import { NextRouter, useRouter } from 'next/router'
-import React from 'react'
+import { useRouter } from 'next/router'
+import React, { ReactElement } from 'react'
 
 
 type Props = {
     title: string,
     link: string,
-    active: boolean,
+    active?: boolean,
+    changePage: (link: string) => void
    
   }
-  
 
-const PackageNavItem: React.FC<Props> = ({  title, link, active }) => {
-    const router : NextRouter = useRouter()
+const PackageNavItem = ({ title, link, changePage }: Props) : ReactElement => {
+    const router = useRouter()
     return (
-       <li onClick={() => router.push(`${link}`)} className={router.asPath === `/packagestatus/${link}` ? 'ls active' : 'ls '}>
+       <li onClick ={()  => changePage(link)} className={router.asPath === `/packagestatus/${link}` ? 'ls active' : 'ls '}>
           {title}
        </li>)
-  
-  
-    }
+   }
 
 export default PackageNavItem
