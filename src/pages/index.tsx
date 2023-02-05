@@ -34,7 +34,7 @@ interface Token {
   token: string | undefined
 }
 const Home: NextPage = () => {
-  const { createCampaign, connect, address} = useStateContext()
+  const {  connect, address} = useStateContext()
 
   const utils = api.useContext();
   const [form, setForm] = useState<PaymentForm>({
@@ -87,11 +87,11 @@ const Home: NextPage = () => {
 
 
  
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault()
-  await createCampaign({...form, target: ethers.utils.parseUnits(form.target, 18) })
+  // const handleSubmit = async (event: React.FormEvent) => {
+  //   event.preventDefault()
+  // await createCampaign({...form, target: ethers.utils.parseUnits(form.target, 18) })
 
-  }
+  // }
    
   return (
     <>
@@ -133,13 +133,13 @@ const Home: NextPage = () => {
 
         {users?.map(u => <div key={u.name}>{u.token}</div>)}
 
-        <form onSubmit={event => handleSubmit(event)}>
+        {/* <form onSubmit={event => handleSubmit(event)}>
           <input 
           placeholder="name coo"
           onChange={e => setForm({...form, title: e.target.value})}
           />
           <button>Submit </button>
-        </form>
+        </form> */}
 
         <div>{address && address}</div>
         
