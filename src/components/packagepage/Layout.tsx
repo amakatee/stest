@@ -1,7 +1,5 @@
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import navdata from '../../data/statusNav.json'
-// import PackageNavItem from '../elements/PackageNavItem'
 import PackageNavItem from '../elements/PackageNavItem'
 
 
@@ -12,9 +10,8 @@ interface Props {
 export default function Layout({ children } : Props) {
     const router = useRouter()
 
-    const changePage = (link: string) => {
+    const changePage : (link: string) => void = (link: string) => {
       router.push(link)
-
     }
 
 
