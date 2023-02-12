@@ -1,7 +1,7 @@
 import { createContext, ReactElement } from "react";
 import { useContext } from "react";
 import { useContract, useAddress, useMetamask,useContractWrite } from "@thirdweb-dev/react";
-
+import type {ConnectorData} from "wagmi"
 
 type ContextType = {
     address: string | undefined,
@@ -11,16 +11,16 @@ type ContextType = {
 
 }
 
-interface CampaigneInfo {
-    address: string, 
-    title: string,
-    description: string,
-    target: any,
-    data:   string | number | Date,
-    image: string | undefined
+// interface CampaigneInfo {
+//     address: string, 
+//     title: string,
+//     description: string,
+//     target: any,
+//     data:   string | number | Date,
+//     image: string | undefined
  
 
-}
+// }
 
 type ChildType = {
     children?: ReactElement | undefined
@@ -34,7 +34,7 @@ export const StateContextProvider = ({children} : ChildType ) : ReactElement => 
     const {mutateAsync: createCampaign  } = useContractWrite(contract, 'createCampaign') 
     const address : string | undefined = useAddress()
     const connect  : () => Promise<{
-        data?: import("wagmi").ConnectorData<any> | undefined;
+        data?: ConnectorData<any> | undefined;
         error?: Error | undefined;
     } | {
         error: Error;
