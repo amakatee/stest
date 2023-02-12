@@ -33,7 +33,12 @@ export const StateContextProvider = ({children} : ChildType ) : ReactElement => 
 
     const {mutateAsync: createCampaign  } = useContractWrite(contract, 'createCampaign') 
     const address : string | undefined = useAddress()
-    const connect: any = useMetamask()
+    const connect : () => Promise<{
+        data?: import("wagmi").ConnectorData<any> | undefined;
+        error?: Error | undefined;
+    } | {
+        error: Error;
+    }> = useMetamask()
  
 
     // const publishCampaign = async (form : any ) =>{
