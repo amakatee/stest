@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { useStateContext } from "../context/StateContext";
 import { api } from "../utils/api";
 import {useContext} from 'react'
-import { ethers } from 'ethers'
+
 
 
 interface FormData {
@@ -34,7 +34,7 @@ interface Token {
   token: string | undefined
 }
 const Home: NextPage = () => {
-  const {  connect, address} = useStateContext()
+  const {connect, address} = useStateContext()
 
   const utils = api.useContext();
   const [form, setForm] = useState<PaymentForm>({
@@ -120,12 +120,12 @@ const Home: NextPage = () => {
         }}>
         <input 
         placeholder="token"
-        onChange={(e :any) => setFormaData({...formData, token: e.target.value}) }
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormaData({...formData, token: e.target.value}) }
 
         />
         <input 
         placeholder="name"
-        onChange={(e : any) => setFormaData({...formData, name: e.target.value}) }
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormaData({...formData, name: e.target.value}) }
         />
         <button type="submit">Submiy</button>
 
