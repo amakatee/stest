@@ -36,17 +36,9 @@ interface PaymentForm {
 
 const Home: NextPage = () => {
   // const {connect, address} = useStateContext()
-  const connect: () => Promise<{
-    data?: ConnectorData<any> | undefined;
-    error?: Error | undefined;
-} | {
-    error: Error;
-}> = useMetamask()
+  const connect = useMetamask()
   const address = useAddress()
-  const disconnet : () => Promise<void | {
-    data?: ConnectorData<any> | undefined;
-    error?: Error | undefined;
-}> = useDisconnect()
+  const disconnet = useDisconnect()
 
 
   const utils = api.useContext();
@@ -98,10 +90,10 @@ const Home: NextPage = () => {
   
 const mint = async () => {
   if(address){
-   await disconnet ()
+   return disconnet()
   
  } else{
-    await connect()
+    return connect()
  }
 
 }
@@ -123,10 +115,10 @@ const mint = async () => {
       </Head>
       <button onClick={async () => {
          if(address){
-           await disconnet()
+           return disconnet()
   
            } else{
-           await connect()
+           return connect()
  }}}>{address ?  'Disonnect' : 'Connect'}</button>
       <main>
         <form onSubmit={(event : React.FormEvent) => {
