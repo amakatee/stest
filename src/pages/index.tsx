@@ -4,9 +4,9 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 import type {ConnectorData} from 'wagmi'
 
-// import { useStateContext } from "../context/StateContext";
+import { useStateContext } from "../context/StateContext";
 import { api } from "../utils/api";
-import { useContract, useAddress, useMetamask,useContractWrite, useDisconnect } from "@thirdweb-dev/react";
+import { useDisconnect } from "@thirdweb-dev/react";
 
 
 
@@ -35,10 +35,10 @@ interface PaymentForm {
 
 
 const Home: NextPage = () => {
-  // const {connect, address} = useStateContext()
-  const connect = useMetamask()
-  const address = useAddress()
-  const disconnet = useDisconnect()
+  const {connect, address, disconnet} = useStateContext()
+  // const connect = useMetamask()
+  // const address = useAddress()
+  // const disconnet = useDisconnect()
 
 
   const utils = api.useContext();
@@ -88,15 +88,7 @@ const Home: NextPage = () => {
   }, [address, allUsers])
 
   
-const mint = async () => {
-  if(address){
-   return disconnet()
-  
- } else{
-    return connect()
- }
 
-}
 
 
  
@@ -116,14 +108,10 @@ const mint = async () => {
       <button onClick={async () => {
         try {
           if(address){
-           void  await disconnet()
-          
-   
-            } else{
-          void    await connect()
-          
-  }
-
+            await disconnet()
+          } else{
+            await connect()
+          }
         } catch (err){
           console.log(err)
 
