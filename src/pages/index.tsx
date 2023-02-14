@@ -115,10 +115,12 @@ const mint = async () => {
       </Head>
       <button onClick={async () => {
          if(address){
-           return disconnet()
+           await disconnet()
+           return
   
            } else{
-           return connect()
+           await connect()
+           return
  }}}>{address ?  'Disonnect' : 'Connect'}</button>
       <main>
         <form onSubmit={(event : React.FormEvent) => {
