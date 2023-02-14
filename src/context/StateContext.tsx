@@ -3,13 +3,13 @@ import { useContext } from "react";
 import { useContract, useAddress, useMetamask,useContractWrite } from "@thirdweb-dev/react";
 import type {ConnectorData} from "wagmi"
 
-type ContextType = {
-    address: string | undefined,
-    contract: any,
-    a: string | undefined,
-    createCampaign: any,
+// type ContextType = {
+//     address: string | undefined,
+//     contract: any,
+//     a: string | undefined,
+//     createCampaign: any,
 
-}
+// }
 
 // interface CampaigneInfo {
 //     address: string, 
@@ -33,12 +33,7 @@ export const StateContextProvider = ({children} : ChildType ) : ReactElement => 
 
     const {mutateAsync: createCampaign  } = useContractWrite(contract, 'createCampaign') 
     const address : string | undefined = useAddress()
-    const connect  : () => Promise<{
-        data?: ConnectorData<any> | undefined;
-        error?: Error | undefined;
-    } | {
-        error: Error;
-    }>= useMetamask()
+    const connect  : () => Promise<{ data?: ConnectorData<any> | undefined; error?: Error | undefined; } | { error: Error; }>= useMetamask()
  
 
     // const publishCampaign = async (form : any ) =>{
