@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 import { useStateContext } from "../context/StateContext";
 import { api } from "../utils/api";
-import { useContract, useAddress, useMetamask,useContractWrite } from "@thirdweb-dev/react";
+import { useContract, useAddress, useMetamask,useContractWrite, useDisconnect } from "@thirdweb-dev/react";
 
 
 
@@ -37,6 +37,7 @@ const Home: NextPage = () => {
   // const {connect, address} = useStateContext()
   const connect = useMetamask()
   const address = useAddress()
+  const disconnet = useDisconnect()
 
 
   const utils = api.useContext();
@@ -104,8 +105,8 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <button onClick={async () => {
-        if(address ){
-          console.log('as')
+        if(address){
+          await disconnet()
          
         } else{
           await connect()
