@@ -114,14 +114,21 @@ const mint = async () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <button onClick={async () => {
-         if(address){
-           await disconnet()
-           return null
-  
-           } else{
-           await connect()
-           return null
- }}}>{address ?  'Disonnect' : 'Connect'}</button>
+        try {
+          if(address){
+            await disconnet()
+            return
+   
+            } else{
+            await connect()
+            return
+  }
+
+        } catch (err){
+          console.log(err)
+
+        }
+       }}>{address ?  'Disonnect' : 'Connect'}</button>
       <main>
         <form onSubmit={(event : React.FormEvent) => {
           event.preventDefault()
