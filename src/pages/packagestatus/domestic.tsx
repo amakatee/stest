@@ -1,5 +1,5 @@
 import { type NextPage } from "next";
-import { useStateContext } from "../../context/StateContext";
+// import { useStateContext } from "../../context/StateContext";
 import Layout from "../../components/packagepage/Layout";
 const Packages : NextPage = () => {
 
