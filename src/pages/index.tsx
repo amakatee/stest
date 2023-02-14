@@ -1,11 +1,13 @@
 import { type NextPage } from "next";
 import Head from "next/head";
-import Link from "next/link";
+
 import { useEffect, useState } from "react";
 
 import { useStateContext } from "../context/StateContext";
 import { api } from "../utils/api";
-import {useContext} from 'react'
+import { useContract, useAddress, useMetamask,useContractWrite } from "@thirdweb-dev/react";
+
+
 
 
 
@@ -30,11 +32,12 @@ interface PaymentForm {
 
 }
 
-interface Token {
-  token: string | undefined
-}
+
 const Home: NextPage = () => {
-  const {connect, address} = useStateContext()
+  // const {connect, address} = useStateContext()
+  const connect = useMetamask()
+  const address = useAddress()
+
 
   const utils = api.useContext();
   const [form, setForm] = useState<PaymentForm>({
