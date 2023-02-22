@@ -6,6 +6,11 @@ html {
     scroll-behavior: smooth;
   }
 
+@layer base {
+    html {
+      font-family: ReaderPro, system-ui;
+    }
+  }
  .ent-page {
      
      width: 100vw;
@@ -47,11 +52,14 @@ html {
 
 
 .ls {
-    font-family: Monument Grotesk Mono,Monaco,Courier,monospace;
+    font-family: "ReaderPro",sans-serif;
     font-size: .8rem;
+  
+    /* font-family: Monument Grotesk Mono,Monaco,Courier,monospace; */
+
     letter-spacing: .4px;
     text-transform: uppercase;
-    line-height: 1.7;
+    line-height: 1.5;
     padding-bottom: .5px;
     position: relative;
     /* background-color: pink; */
