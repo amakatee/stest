@@ -1,6 +1,6 @@
 [ 
     {   
-        "owner": "0x74",
+        "localtracker": "0x74",
         "status": "DOMESTIC",
         "recipient": "Gafweb",
         "country": "Brafewxil",
@@ -10,7 +10,7 @@
         "tracking": "32423"
     },
     {   
-        "owner": "0X45",
+        "localtracker": "0X45",
         "status": "DOMESTIC",
         "recipient": "Gab",
         "country": "Braxil",
@@ -21,7 +21,7 @@
       
     },
     {   
-        "owner": "0X45",
+        "localtracker": "0X45",
         "status": "PAYMENT",
         "recipient": "Gab",
         "country": "Braxil",
@@ -32,7 +32,7 @@
       
     },
     {   
-        "owner": "0X47",
+        "localtracker": "0X47",
         "status": "STORAGE",
         "recipient": "Gab",
         "country": "Braxil",

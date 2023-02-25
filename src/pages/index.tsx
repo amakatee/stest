@@ -33,13 +33,18 @@ interface PaymentForm {
   
 
 }
-
+interface PackageForm { 
+  localtracker: string,
+  description : string
+}
 
 const Home: NextPage = () => {
   // const {connect, address, disconnet} = useStateContext()
   const connect = useMetamask()
   const address = useAddress()
   const disconnet = useDisconnect()
+
+ 
 
 
   const utils = api.useContext();
@@ -88,17 +93,21 @@ const Home: NextPage = () => {
      }
   }, [address, allUsers])
 
+  const [packageForm, setPackageForm] = useState<PackageForm>({
+    localtracker: '',
+    description: ''
+  })
+
+
+  const addPackage = api?.packages?.newPackage?.useMutation({
+    onSuccess: (data: any) => {
+      console.log(data)
+       // setUsers(prev => [...prev, data])
+     }
+
+  })
   
 
-
-
- 
-  // const handleSubmit = async (event: React.FormEvent) => {
-  //   event.preventDefault()
-  // await createCampaign({...form, target: ethers.utils.parseUnits(form.target, 18) })
-
-  // }
-   
   return (
       <>
          <button onClick={async () => {
@@ -114,7 +123,34 @@ const Home: NextPage = () => {
         }
        }}>{address ?  'Disonnect' : 'Connect'}</button>
       <main>
-        <form onSubmit={(event : React.FormEvent) => {
+        <form className="form-tracker"
+        onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
+          event.preventDefault()
+          console.log(packageForm.description, packageForm.localtracker)
+          addPackage.mutate({localtracker: packageForm.localtracker, description: packageForm.description})
+
+        }}
+        >
+           <input
+           placeholder="local tracking code"
+           onChange={(event:React.ChangeEvent<HTMLInputElement>) => {
+             setPackageForm({...packageForm, localtracker: event.target.value})
+
+           }}
+            />
+            <input 
+            placeholder="additional info"
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              setPackageForm({...packageForm, description: event.target.value})
+            }}
+            />
+            <button type="submit">Track Package</button>
+
+        </form>
+
+
+
+        {/* <form onSubmit={(event : React.FormEvent) => {
           event.preventDefault()
           console.log("hello")
        
@@ -134,17 +170,11 @@ const Home: NextPage = () => {
         />
         <button type="submit">Submiy</button>
 
-        </form>
+        </form> */}
 
         {users?.map(u => <div key={u.name}>{u.token}</div>)}
 
-        {/* <form onSubmit={event => handleSubmit(event)}>
-          <input 
-          placeholder="name coo"
-          onChange={e => setForm({...form, title: e.target.value})}
-          />
-          <button>Submit </button>
-        </form> */}
+       
 
         <div>{address && address}</div>
         

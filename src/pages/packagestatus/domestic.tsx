@@ -12,7 +12,7 @@ const Packages : NextPage = () => {
     return (
         <Layout>
                {packages.length ?  packages.map((pack, i) =>  
-                <SinglePackageItem key={i} owner={pack.owner} status={pack.status}  />
+                <SinglePackageItem key={i} owner={pack.localtracker} status={pack.status}  />
              
             ) : <div>no data</div>}
            

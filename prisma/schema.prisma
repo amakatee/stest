@@ -27,12 +27,23 @@ model User {
   role    Role      @default(USER)
 }
 
+
+
 model Package {
   id        String        @id @default(auto()) @map("_id") @db.ObjectId
   createdAt DateTime      @default(now())
-  owner     User          @relation(fields: [ownerId], references: [id])
-  ownerId   String        @db.ObjectId
+  owner     User?        @relation(fields: [ownerId], references: [id])
+  ownerId   String?        @db.ObjectId
   status    PackageStatus @default(AWAITS)
+  recipient String?
+  country   String?
+  type      String?
+  weight    String?
+  billing   String?
+  tracking  String?
+  description String?
+  localtracker String?
+
 }
 
 enum Role {

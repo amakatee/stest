@@ -16,7 +16,7 @@ const Storage : NextPage = () => {
              
             </div>
            {packages.length ? packages.map((pack, i) =>  
-                <SinglePackageItem key={i} owner={pack.owner} status={pack.status} recipient={pack.recipient}  billing={pack.billing} type={pack.type} weight={pack.weight} />
+                <SinglePackageItem key={i} owner={pack.localtracker} status={pack.status} recipient={pack.recipient}  billing={pack.billing} type={pack.type} weight={pack.weight} />
              
             ) : <div> no data</div>}
        </Layout>
