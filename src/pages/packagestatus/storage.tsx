@@ -10,6 +10,11 @@ const Storage : NextPage = () => {
 
     return (
         <Layout>
+            <div className="address">
+                <div>  + Add shipping adress</div>
+                <div className="sma">no address choose</div>
+             
+            </div>
            {packages.length ? packages.map((pack, i) =>  
                 <SinglePackageItem key={i} owner={pack.owner} status={pack.status} recipient={pack.recipient}  billing={pack.billing} type={pack.type} weight={pack.weight} />
              

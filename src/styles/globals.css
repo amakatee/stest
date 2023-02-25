@@ -88,6 +88,7 @@ border: 1px solid rgba(18, 22, 34, 0.03);
 
     justify-content: space-between;
     gap: 1rem;
+    position: relative;
 }
 
 .box {
@@ -96,6 +97,7 @@ border: 1px solid rgba(18, 22, 34, 0.03);
     width: 95%;
     margin: auto;
     border-radius: 10px;
+
  
      background-color: rgba(137, 43, 226, 0.212);
 }
@@ -131,4 +133,28 @@ border: 1px solid rgba(18, 22, 34, 0.03);
 .single-p-m p {
     font-size: .72rem;
 
+}
+
+.address {
+
+  text-align: right;
+  padding-right: 1rem;
+  font-size: .9rem;
+  line-height: 1.7;
+  
+    /* position: absolute;
+    top: 5%;
+    right: 0; */
+}
+
+.sma {
+    font-size: .5rem;
+}
+
+.payment {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 95%;
+    margin: auto;
 }
