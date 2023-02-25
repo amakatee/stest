@@ -4,111 +4,131 @@
 
 html {
     scroll-behavior: smooth;
+
   }
 
 @layer base {
     html {
       font-family: ReaderPro, system-ui;
+
     }
   }
- .ent-page {
-     
-     width: 100vw;
-     min-height: 100vh;
-     display: grid;
-     place-content: center;
-     background-color: #19214d;
-     color: #deeff5;
-  
- } 
-.package-page {
-    width: 90vw;
-    margin: auto;
-   height: 80vh;
- 
 
-   
+
+ 
+  /* border-right: 1px solid #1e1e1e; */
+
+.ent-page {
+    background-image: url("../../public/bg.jpg");
+    width: 100vw;
+    min-height: 100vh;
+    background-size: cover;
+}  
+
+.package-page {
+    
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    align-items: center;
+    gap: 3rem;
+    padding: 5rem 1rem;
+    /* padding-block: 3rem;
+    padding-inline: 2rem; */
+
 }
 
 .main-menu {
     display: flex;
-    justify-content: space-around;
-    padding: 1em;
-  
-}
-
-.main-window { 
-    /* background-color:  #deeff513; */
-    color: #19214d ;
-    min-height: 20vh;
-    max-height: 80vh;
-  
-    border: 1px solid #deeff55d;
-    
-}
-
-
-.ls {
-    font-family: "ReaderPro",sans-serif;
-    font-size: .8rem;
-  
-    /* font-family: Monument Grotesk Mono,Monaco,Courier,monospace; */
-
-    letter-spacing: .4px;
-    text-transform: uppercase;
-    line-height: 1.5;
-    padding-bottom: .5px;
-    position: relative;
-    /* background-color: pink; */
-    /* overflow: hidden; */
-    
-}
-.active { 
-    border-bottom: 1px solid white;
- 
-   
-}
-.cover-box {
-    background-color: #deeff5;
+    color: #1e1e1e;
     width: 100%;
+    align-items: center;
+    justify-content: space-around;
+    text-transform: uppercase;
+    font-size: .8rem;
+    line-height: 1.8;
+    letter-spacing: .2px;
+    font-weight: 300;
+    /* From https://css.glass */
+background: rgba(18, 22, 34, 0);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(3px);
+-webkit-backdrop-filter: blur(3px);
+border: 1px solid rgba(18, 22, 34, 0.1);
 
-    height: .24rem;
-    position: absolute;
-    bottom: -3px;
-    left: 0;
+}
+
+.main-window {
   
+    width: 100%;
+    min-height: 10vh;
+    max-height: 50vh;
+    overflow-y: scroll;
+    color: white;
+    font-size: .8rem;
+    letter-spacing: .2px;
+    font-weight: 300;
+
+    /* From https://css.glass */
+/* From https://css.glass */
+background: rgba(18, 22, 34, 0.31);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(2.4px);
+-webkit-backdrop-filter: blur(2.4px);
+border: 1px solid rgba(18, 22, 34, 0.03);
+    
+}
+
+
+.boxes {
+    display: flex;
+    flex-direction: column;
+    padding-block: 2rem;
+
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.box {
+    display: flex;
+    min-height: 5rem;
+    width: 95%;
+    margin: auto;
+    border-radius: 10px;
+ 
+     background-color: rgba(137, 43, 226, 0.212);
+}
+
+.single-p-img {
+    display: grid ;
+    place-content: center;
+    padding: 1rem;
+ 
+    
+
+}
+.single-p-img img {
+   width: 4rem;
    
 }
 
-@keyframes slidein {
-    0% {
-      transform: translateX(0%);
-    }
-  
-    
-    100% {
-        transform: translateX(200%);
-      }
-  }
-.diamond {
-width: 0;
-height: 0;
-border: 50px solid transparent;
-border-bottom-color: rgb(131, 90, 90);
-position: relative;
-top: -50px;
+.single-p-m {
+    display: flex;
+    flex-direction: column;
+    padding: .8rem;
+    align-items: start;
+    justify-content: space-around;
+    gap: .1rem;
+
+   
+
 }
-.diamond:after {
-content: '';
-position: absolute;
-left: -50px;
-top: 50px;
-width: 0;
-height: 0;
-border: 50px solid transparent;
-border-top-color: red; }
 
+.single-p-m p span {
+    font-weight: 500;
+}
+.single-p-m p {
+    font-size: .72rem;
 
+}

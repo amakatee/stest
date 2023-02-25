@@ -15,6 +15,7 @@ export default function Layout({ children } : Props) {
   return (
     <>
         <div className="ent-page">
+       
   
         <main className="package-page">
             <ul className="main-menu">
@@ -23,7 +24,9 @@ export default function Layout({ children } : Props) {
                
             </ul>
             <div className="main-window">
-            {children}
+              <ul className='boxes'>
+               {children}
+            </ul>
                
 
             </div>
