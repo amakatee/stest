@@ -100,7 +100,7 @@ const Home: NextPage = () => {
   // }
    
   return (
-      <MainLayout>
+      <>
          <button onClick={async () => {
            try {
               if(address){
@@ -150,7 +150,7 @@ const Home: NextPage = () => {
         
       </main>
      
-      </MainLayout>
+      </>
     
   );
 };

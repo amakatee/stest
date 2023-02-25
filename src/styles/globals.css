@@ -19,7 +19,7 @@ html {
   /* border-right: 1px solid #1e1e1e; */
 
 .ent-page {
-    background-image: url("../../public/bg.jpg");
+    background-image: url("../../public/bj2.jpg");
     width: 100vw;
     min-height: 100vh;
     background-size: cover;
@@ -39,7 +39,8 @@ html {
 
 .main-menu {
     display: flex;
-    color: #1e1e1e;
+    /* color: #1e1e1e; */
+    color: #fff;
     width: 100%;
     align-items: center;
     justify-content: space-around;
@@ -99,7 +100,7 @@ border: 1px solid rgba(18, 22, 34, 0.03);
     border-radius: 10px;
 
  
-     background-color: rgba(137, 43, 226, 0.212);
+     background-color: rgba(44, 128, 143, 0.212);
 }
 
 .single-p-img {
@@ -157,4 +158,34 @@ border: 1px solid rgba(18, 22, 34, 0.03);
     justify-content: space-between;
     width: 95%;
     margin: auto;
+}
+
+.active {
+    border-bottom: 1px solid #fff ;
+}
+
+.menu {
+    display: flex;
+    position: fixed;
+    bottom: 10px;
+    width: 80vw;
+    border-radius: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+     height: 10vh;
+    background-color: rgba(21, 75, 85, 0.384);
+    align-items: center;
+    justify-content: space-around;
+}
+
+.menu li {
+    border: 1px solid rgba(42, 134, 150, 0.87);
+    color: rgba(42, 134, 150, 0.877);
+    padding: .5rem 1rem;
+    font-size: .7rem;
+    cursor: pointer;
+    border-radius: 10px;
+
+
+    
 }
