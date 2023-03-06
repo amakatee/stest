@@ -49,7 +49,22 @@ export const packagesRouter = createTRPCRouter({
         status: z.string()
     }))
     .mutation(async({ctx, input}) => {
-        const {id } = input
+        const {id, status } = input
+    //   for (const [key, value] of Object.entries(PackageStatus)) {
+    //       console.log(`keyyyy ${key} ${value} valuee`)
+    
+          
+    //   }
+    let updatedStatus
+        if (status === PackageStatus.STORAGE) {
+            updatedStatus = PackageStatus.STORAGE
+        } else if(status === PackageStatus.AWAITS) {
+            updatedStatus = PackageStatus.AWAITS
+        }else if(status === PackageStatus.DOMESTIC) {
+            updatedStatus = PackageStatus.DOMESTIC
+        }else if(status === PackageStatus.RECEIPT) {
+            updatedStatus = PackageStatus.RECEIPT
+        }
 
 
         try {
@@ -58,7 +73,7 @@ export const packagesRouter = createTRPCRouter({
                     id
                 },
                 data: {
-                  status: input.status
+                status: updatedStatus
 
                 }
                 

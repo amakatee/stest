@@ -43,7 +43,7 @@ const User : NextPage = () => {
     }
 
     
-
+   
 
     return (
         <main className="user-main"> 
