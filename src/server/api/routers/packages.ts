@@ -73,7 +73,7 @@ export const packagesRouter = createTRPCRouter({
                     id
                 },
                 data: {
-                status: updatedStatus
+                    status: updatedStatus
 
                 }
                 
