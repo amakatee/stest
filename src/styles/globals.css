@@ -189,3 +189,24 @@ border: 1px solid rgba(18, 22, 34, 0.03);
 
     
 }
+
+
+
+/* admin page */
+
+
+
+.user-main {
+    width: 100vw;
+  
+    display: flex;
+    flex-direction: column ;
+    justify-content: space-around;
+    gap: 1em;
+    padding: 1rem 2rem;
+}
+
+.user-page {
+    display: flex;
+    justify-content: space-around;
+}

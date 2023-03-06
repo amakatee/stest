@@ -1,22 +1,33 @@
 import { type NextPage } from "next";
+import { usersRouter } from "../../server/api/routers/users";
 import { api } from "../../utils/api";
+import Link from "next/link";
+import {PackageStatus} from "@prisma/client";
+
 
 const Manage : NextPage = () => {
-
-    const {data: allPackages} = api?.packages?.allPackages?.useQuery()
     const {data: allUsers} = api?.users?.allUsers?.useQuery()
 
-
-
-    console.log(allPackages)
-    console.log(allUsers)
-
-  
-
     return (
-        <div>manage</div>
-       
-      
+        <>
+        <table>
+            <thead>
+                <tr>
+                    <th>User:</th>
+                    <th>packages</th>
+                </tr>
+            </thead>
+            {allUsers?.map(user =>  <tbody>
+               <Link href={`${user.id}`}> 
+                <tr>
+                    <td>{user.token.slice(-8)}</td>
+                    <td> {user.package.length}</td>
+                </tr> 
+                </Link>
+            </tbody> 
+            )}
+        </table>
+        </>
     )
 
 }

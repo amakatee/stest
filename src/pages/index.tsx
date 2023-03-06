@@ -1,6 +1,6 @@
 import { type NextPage } from "next";
 import Head from "next/head";
-
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import type {ConnectorData} from 'wagmi'
 import MainLayout from '../components/MainLayout'
@@ -38,6 +38,16 @@ interface PackageForm {
   description : string
 }
 
+interface ExistingUser {
+  id: string,
+  name: string,
+  role: string,
+  token: string,
+  package: any
+
+
+}
+
 const Home: NextPage = () => {
   // const {connect, address, disconnet} = useStateContext()
   const connect = useMetamask()
@@ -64,7 +74,7 @@ const Home: NextPage = () => {
     token: '',
     name: ''
   })
-
+  const [existingUser, setExistingUser] = useState<ExistingUser>()
 
   
 
@@ -72,6 +82,11 @@ const Home: NextPage = () => {
    
     
   )
+  const currentUser = allUsers?.find(user => user.token === address)
+  console.log(currentUser)
+
+
+ 
  const addUser = api?.users?.newUser?.useMutation({
     onSuccess: (data: any) => {
      console.log(data)
@@ -85,6 +100,8 @@ const Home: NextPage = () => {
        const existingUser = allUsers?.find(user => user.token === address)
        if(existingUser) {
         console.log('exists')
+        console.log(existingUser)
+        // setExistingUser(existingUser)
         } else {
         console.log('new')
         addUser.mutate({
@@ -107,6 +124,9 @@ const Home: NextPage = () => {
 
   })
   
+  const {data: allPackages} = api?.packages?.allPackages?.useQuery()
+  console.log(allPackages)
+
 
   return (
       <>
@@ -127,7 +147,14 @@ const Home: NextPage = () => {
         onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
           event.preventDefault()
           console.log(packageForm.description, packageForm.localtracker)
-          addPackage.mutate({localtracker: packageForm.localtracker, description: packageForm.description})
+          if(currentUser != undefined ) {
+            addPackage.mutate({localtracker: packageForm.localtracker, description: packageForm.description, ownerId:  currentUser?.id   })
+
+
+          } else {
+            console.log("no user")
+
+          }
 
         }}
         >
@@ -177,6 +204,7 @@ const Home: NextPage = () => {
        
 
         <div>{address && address}</div>
+        <Link href='admin/manage'>to admin</Link>
         
       </main>
      

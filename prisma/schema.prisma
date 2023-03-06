@@ -43,6 +43,9 @@ model Package {
   tracking  String?
   description String?
   localtracker String?
+  statusval     String? 
+
+  @@index([ownerId])
 
 }
 

@@ -28,7 +28,11 @@ export const usersRouter = createTRPCRouter({
 
     allUsers: publicProcedure.query(async( { ctx }) => {
         try {
-            const users = ctx?.prisma?.user?.findMany()
+            const users = ctx?.prisma?.user?.findMany({
+                include: {
+                    package: true
+                }
+            })
             console.log(users)
             return users
         } catch(err) {
