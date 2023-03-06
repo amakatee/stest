@@ -17,7 +17,7 @@ const Manage : NextPage = () => {
                     <th>packages</th>
                 </tr>
             </thead>
-            {allUsers?.map(user =>  <tbody>
+            {allUsers?.map(user =>  <tbody key={user.id}>
                <Link href={`${user.id}`}> 
                 <tr>
                     <td>{user.token.slice(-8)}</td>

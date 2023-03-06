@@ -56,6 +56,7 @@ export const packagesRouter = createTRPCRouter({
           
     //   }
     let updatedStatus
+   
         if (status === PackageStatus.STORAGE) {
             updatedStatus = PackageStatus.STORAGE
         } else if(status === PackageStatus.AWAITS) {
