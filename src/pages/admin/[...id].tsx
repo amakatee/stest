@@ -30,11 +30,7 @@ const User : NextPage = () => {
 
 
     const {mutate: updateStorage} = api?.packages?.updateStorageData.useMutation({
-        onSuccess: (t: any) => {
-           const existingPackage = packages?.find(p => p.id === t.id)
-           
-            
-        }
+        
     }
         
     )
