@@ -2,6 +2,7 @@ import { z } from "zod";
 
 import { createTRPCRouter, publicProcedure } from "../trpc";
 import {PackageStatus} from "@prisma/client";
+import { id } from "ethers/lib/utils";
 
 
 export const packagesRouter = createTRPCRouter({
@@ -47,15 +48,11 @@ export const packagesRouter = createTRPCRouter({
     .input (z.object({
         id: z.string(),
         status: z.string()
+        
     }))
     .mutation(async({ctx, input}) => {
         const {id, status } = input
-    //   for (const [key, value] of Object.entries(PackageStatus)) {
-    //       console.log(`keyyyy ${key} ${value} valuee`)
-    
-          
-    //   }
-    let updatedStatus
+        let updatedStatus
    
         if (status === PackageStatus.STORAGE) {
             updatedStatus = PackageStatus.STORAGE
@@ -65,9 +62,9 @@ export const packagesRouter = createTRPCRouter({
             updatedStatus = PackageStatus.DOMESTIC
         }else if(status === PackageStatus.RECEIPT) {
             updatedStatus = PackageStatus.RECEIPT
+        }else if(status === PackageStatus.PAYMENT) {
+            updatedStatus = PackageStatus.PAYMENT
         }
-
-
         try {
             return await ctx?.prisma?.package.update({
                 where: {
@@ -80,6 +77,55 @@ export const packagesRouter = createTRPCRouter({
                 
             })
         } catch(err){
+            console.log(err)
+        }
+    }),
+
+    updateStorageData: publicProcedure
+    .input (z.object({
+        id: z.string(),
+        weight: z.string(),
+       
+
+
+    }))
+    .mutation(async({ctx, input }) => {
+        try {
+            return await ctx?.prisma?.package.update({
+                where: {
+                    id: input.id
+                },
+                data: {
+                    weight: input.weight
+                }
+            })
+
+        }catch(err) {
+            console.log(err)
+        }
+    }),
+
+    updatePaymentData: publicProcedure
+    .input(z.object({
+        id: z.string(),
+        recipient: z.string(),
+        billing: z.string(),
+        type: z.string(),
+    }))
+    .mutation(async({ctx, input}) => {
+        try {
+           return await ctx?.prisma?.package?.update({
+             where : {
+                 id: input.id
+             },
+             data: {
+                 recipient: input.recipient,
+                 billing: input.billing,
+                 type: input.type
+             }
+           })
+
+        } catch(err) {
             console.log(err)
         }
     })
