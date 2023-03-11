@@ -230,4 +230,12 @@ border: 1px solid rgba(18, 22, 34, 0.03);
     padding: .4rem;
     gap: .5rem;
 }
-
+.form p span {
+    background-color: pink;
+}
+.form button {
+    background-color: pink;
+}
+.form select {
+    background-color: pink;
+}

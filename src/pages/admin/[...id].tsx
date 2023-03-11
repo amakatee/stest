@@ -93,8 +93,8 @@ const User : NextPage = () => {
         <div className="forms">
 
             {formData?.map(pack => <form className="form" key={pack.id} onSubmit={(e:  React.FormEvent<HTMLFormElement>) => getPackageData(e, pack.id)}>
-                <div>{pack.localtracker}</div>
-                <div>{pack.description}</div>
+                <p><span>local tracker: </span>{pack.localtracker}</p>
+                <p><span>description: </span>{pack.description}</p>
                
                 <CustomInput label="weight" name="weight" id={pack.id} placeholderValue="weight"   property={pack.weight} setFormData={setFormData} formData={formData}  /> 
                 <CustomInput label="billing" name="billing" id={pack.id} placeholderValue="billing"   property={pack.billing} setFormData={setFormData} formData={formData}  /> 
