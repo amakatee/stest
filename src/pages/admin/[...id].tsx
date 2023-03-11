@@ -5,11 +5,8 @@ import { api } from "../../utils/api";
 import { useRouter } from 'next/router'
 import { useEffect, useState } from "react";
 import React from "react";
-import { Package } from "@prisma/client";
-import {PackageStatus} from "@prisma/client";
-import PreviousMap from "postcss/lib/previous-map";
-import { string } from "zod";
-
+import { Package, PackageStatus } from "@prisma/client";
+import CustomInput from "../../components/elements/CustomInput";
 
 
 
@@ -24,19 +21,16 @@ const User : NextPage = () => {
     const {mutate: addPackage} = api?.packages?.updatePackage.useMutation({
         onSuccess: (t: any) => {
             console.log(t)
-            
         }
     })
 
 
-    const {mutate: updateStorage} = api?.packages?.updateStorageData.useMutation({
-        
-    }
-        
-    )
 
-    const {mutate: updateBilling} = api?.packages?.updatePaymentData.useMutation({
+    const {mutate: updatePackageData} = api?.packages?.updateData?.useMutation({
+        onError: (err) => {
+            console.log(err)
 
+        }
     })
 
   const {query} = useRouter()
@@ -45,22 +39,15 @@ const User : NextPage = () => {
 
     const [packages , setPackages] = useState<Package[] | undefined>([])
 
-
-
     useEffect(() => {
-        setPackages(currentUser?.package.map(p => p))
+        setFormData(currentUser?.package.map(p => p))
 
     }, [allUsers])
+    const [formData, setFormData] = useState<Package[] | undefined> ([])
+    console.log(formData)
+
 
     
-  
-    
-    let status : string
-
-   
-    
-    
-  
     const changeStatus = (id: string, newStatus: PackageStatus) => {
         addPackage({
             id: id,
@@ -74,142 +61,69 @@ const User : NextPage = () => {
         status: PackageStatus
     }
 
-   
-
-    const updateStorageData = (id: string , data: string) => {
-        const updatedArray = packages?.map(pack => {
-            if(pack.id === id) {
-                return {...pack, weight: data}
-                // pack.weight = data
-            }
-            return pack
-           
-        })
-        setPackages(updatedArray)
-        updateStorage({
-            id, weight: data
-        })
-
-    }
-
-    const updateBillingData = (id: string, data: string) => {
-        const updatedArray = packages?.map(pack => {
-            if(pack.id === id) {
-                return {...pack, billing: data}
-               
-            }
-            return pack
-        })
-        setPackages(updatedArray)
-        updateBilling({
-            id, recipient: "k", billing:data, type: "ds"
-        })
-
-    } 
-
-    function currentPage (id: string, newStatus: PackageStatus) {
-        const existingPackage  = packages?.find(pack => pack.id === id )
-        console.log(existingPackage?.localtracker)
-
-        
-        switch(status = newStatus) {
-            case 'STORAGE':
-                console.log('pay', newStatus, status)
-                return  <section>
-                <label> Weight: 
-                   <input 
-                   placeholder="weight"
-                   value={existingPackage?.weight || ""}
-                   onChange={(event: React.ChangeEvent<HTMLInputElement>) => updateStorageData(id, event.target.value)}
-                   /> 
-                   
-                </label>
-                
-             
-                {/* <div>User : {currentUser.id.slice(-3)}</div> */}
-                
-            </section>
-            break
-            case 'PAYMENT':
-                console.log('g')
-                return  <section>
-                <label> Weight: 
-                   <input 
-                   placeholder="weight"
-                   value={existingPackage?.weight || ""}
-                   onChange={(event: React.ChangeEvent<HTMLInputElement>) => updateStorageData(id, event.target.value)}
-                   /> 
-                   
-                </label>
-                <label> PAYMENT: 
-                   <input 
-                   placeholder="payment"
-                   value={existingPackage?.billing || ""}
-                   onChange={(event: React.ChangeEvent<HTMLInputElement>) => updateBillingData(id, event.target.value)}
-                   /> 
-                   
-                </label>
-                
-             
-                {/* <div>User : {currentUser.id.slice(-3)}</div> */}
-                
-            </section>
-                break
-             }
-                
-
-        }
-
+  
     
+     const getPackageData = (e:  React.FormEvent<HTMLFormElement>, id : string) => {
+         e.preventDefault()
+         const existingPackage = formData?.find(pack => pack.id === id)
+        if(existingPackage){
+            updatePackageData({
+                id:existingPackage.id,
+                weight: existingPackage.weight as string || ""  ,
+                billing: existingPackage.billing as string || "" ,
+                recipient: existingPackage.recipient as string || "",
+                country: existingPackage.country as string || "",
+                type: existingPackage.type as string || "",
+                tracking: existingPackage.tracking as string || "",
+
+            })
+            
+
+        } else {
+            console.log('Not successful')
+        }
+        
+
+
+     }
     return (
         <main className="user-main"> 
         
         <div className="user-token ">  {currentUser?.token.slice(-9)} </div>
-        <form>
+        <div className="forms">
+
+            {formData?.map(pack => <form className="form" key={pack.id} onSubmit={(e:  React.FormEvent<HTMLFormElement>) => getPackageData(e, pack.id)}>
+                <div>{pack.localtracker}</div>
+                <div>{pack.description}</div>
+               
+                <CustomInput label="weight" name="weight" id={pack.id} placeholderValue="weight"   property={pack.weight} setFormData={setFormData} formData={formData}  /> 
+                <CustomInput label="billing" name="billing" id={pack.id} placeholderValue="billing"   property={pack.billing} setFormData={setFormData} formData={formData}  /> 
+                <CustomInput label="country" name="country" id={pack.id} placeholderValue="country"   property={pack.country} setFormData={setFormData} formData={formData}  /> 
+                <CustomInput label="recipient" name="recipient" id={pack.id} placeholderValue="recipient"   property={pack.recipient} setFormData={setFormData} formData={formData}  /> 
+                <CustomInput label="type" name="type" id={pack.id} placeholderValue="type"   property={pack.type} setFormData={setFormData} formData={formData}  /> 
+                <CustomInput label="tracking" name="tracking" id={pack.id} placeholderValue="tracking"   property={pack.tracking} setFormData={setFormData} formData={formData}  /> 
+
+
+                <select
+                   onChange={(event: React.ChangeEvent<HTMLSelectElement>) => changeStatus(pack.id, event.target.value as PackageStatus)} >
+                   <option value={pack.status}>{pack.status}</option>
+                    {PackagesStatus.map((status, i) =>  <option key={i} value={status}>{status}</option>)}
+                </select>
+
+                <button type="submit">Save Changes</button>
+            </form>)
+            }
+
+
        {packages?.map((pack) => <div key={pack.id} className="user-page">
             <div>{pack.localtracker}</div>
             <div>{pack.description}</div>
-            {currentPage(pack.id, pack.status)}
+            {/* {currentPage(pack.id, pack.status)} */}
   
-            {/* {pack.status === "STORAGE"  && <section>
-                <label> Weight: 
-                   <input 
-                   placeholder="weight"
-                   value={pack?.weight || ""}
-                   onChange={(event: React.ChangeEvent<HTMLInputElement>) => updateStorageData(pack.id, event.target.value)}
-                   /> 
-                   
-                </label>
+         
+        
+           
                 
-             
-               
-                
-            </section> } */}
-          
-            {/* {pack.status === "PAYMENT" && <section>
-            <label> Weight: 
-                   <input 
-                   placeholder="weight"
-                   value={pack?.weight || ""}
-                   onChange={(event: React.ChangeEvent<HTMLInputElement>) => updateStorageData(pack.id, event.target.value)}
-                   /> 
-                   
-                </label>
-                <label> Billing: 
-                   <input 
-                   placeholder="billing"
-                   value={pack?.billing || ""}
-                   onChange={(event: React.ChangeEvent<HTMLInputElement>) => updateBillingData(pack.id, event.target.value)}
-                   /> 
-                   
-                </label>
-                
-                <div>Country : {pack.country}</div>
-                <div>Type : {pack.type}</div>
-
-                
-            </section> } */}
-      
 
             <select
              onChange={(event: React.ChangeEvent<HTMLSelectElement>) => changeStatus(pack.id, event.target.value as PackageStatus)} >
@@ -233,7 +147,7 @@ const User : NextPage = () => {
       
       
 
-        </form>
+        </div>
         
         </main>
     )

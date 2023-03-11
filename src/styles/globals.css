@@ -210,3 +210,24 @@ border: 1px solid rgba(18, 22, 34, 0.03);
     display: flex;
     justify-content: space-around;
 }
+
+.user-main {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.forms {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+.form {
+    border: 1px solid black;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: .4rem;
+    gap: .5rem;
+}
+
