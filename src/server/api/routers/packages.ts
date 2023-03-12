@@ -114,24 +114,24 @@ export const packagesRouter = createTRPCRouter({
         }
     }),
 
-    // deletePackage: publicProcedure
-    // .input(z.object({
-    //     id: z.string()
-    // }))
-    // .mutation(async({ctx, input}) => {
-    //     try  {
-    //         return await ctx.prisma.package.delete({
-    //             where: {
-    //                 id: input.id
-    //             }
-    //         })
+    deleteUserPackages: publicProcedure
+    .input(z.object({
+        ownerId: z.string()
+    }))
+    .mutation(async({ctx, input}) => {
+        try  {
+            return await ctx.prisma.package.deleteMany({
+                where: {
+                    ownerId: input.ownerId
+                }
+            })
 
-    //     } catch(err) {
-    //         console.log(err)
+        } catch(err) {
+            console.log(err)
 
-    //     }
+        }
         
-    // }
+    })
 
 })
 

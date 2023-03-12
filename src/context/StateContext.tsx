@@ -4,6 +4,11 @@ import { Package, PackageStatus } from "@prisma/client";
 import { useDisconnect, useMetamask, useAddress } from "@thirdweb-dev/react";
 
 
+
+interface PackageForm { 
+    localtracker: string,
+    description : string
+  }
 interface StateContextType  {
     connect: () => Promise<{
         data?: any| undefined;
@@ -11,18 +16,21 @@ interface StateContextType  {
     } | {
         error: Error;
     }>,
-    address: string | undefined
-    user: string,
-    setUser: React.Dispatch<React.SetStateAction<string>>
+    address: string | undefined,
 
-    // disconnect: () => Promise<void | {
-    //     data?: ConnectorData<any> | undefined;
-    //     error?: Error | undefined;
-    // }>
+    packageForm: PackageForm ,
+    setPackageForm :  React.Dispatch<React.SetStateAction<PackageForm>>,
+
+    disconnect: () => Promise<void | {
+        data?: any | undefined;
+        error?: Error | undefined;
+    }>
 
 
 }
 
+
+  
 
 type Props = {
     children?: ReactNode | undefined;
@@ -33,15 +41,22 @@ type Props = {
 const StateContext = createContext<null | StateContextType>(null)
 
 export function StateContextProvider({children} : Props)  {
-    const [user, setUser] = useState('userq2')
+  
      const connect = useMetamask()
      const address = useAddress()
-    // const disconnet = useDisconnect()
+     const disconnect = useDisconnect()
+     
+    const [packageForm, setPackageForm] = useState<PackageForm>({
+        localtracker: '',
+        description: ''
+    })
+
     const value = {
         connect,
-        user,
-        setUser,
-        address
+        packageForm,
+        setPackageForm,
+        address,
+        disconnect
     }
   
     

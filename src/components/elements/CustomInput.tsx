@@ -21,13 +21,6 @@ const CustomInput = ({label, name, id, placeholderValue ,  property, setFormData
    
     return (
         <label>{label}: 
-        {/* <input 
-        name={name}
-        placeholder={placeholderValue}
-        value={property || ""}
-        onChange={(event: React.ChangeEvent<HTMLInputElement>) => updateFunc(id, event.target)}
-        />  */}
-
             <input
                 name="weight"
                 value={property as string || ""}

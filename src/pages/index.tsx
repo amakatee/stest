@@ -3,12 +3,11 @@ import Head from "next/head";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import type {ConnectorData} from 'wagmi'
-import MainLayout from '../components/MainLayout'
-
-// import { useStateContext } from "../context/StateContext";
+import CustomInputMain from "../components/elements/CustomInputMain";
 import { api } from "../utils/api";
-import { useDisconnect, useMetamask, useAddress } from "@thirdweb-dev/react";
 import {useStateContext } from '../context/StateContext'
+import ConnectButton from "../components/elements/ConnectButton";
+import SubmitButtton from '../components/elements/SubmitButton'
 
 
 
@@ -39,33 +38,16 @@ interface PackageForm {
   description : string
 }
 
-interface ExistingUser {
-  id: string,
-  name: string,
-  role: string,
-  token: string,
-  package: any
 
-
-}
 
 const Home: NextPage = () => {
-  // const {connect, address, disconnet} = useStateContext()
-  // const connect = useMetamask()
-  const address = useAddress()
-  const disconnet = useDisconnect()
 
   const data = useStateContext()
- 
   
-  const utils = api.useContext();
+   const {data: allUsers, isLoading} = api?.users?.allUsers?.useQuery( )
 
-  const [ users, setUsers] = useState<User[]>()
-  const {data: allUsers, isLoading} = api?.users?.allUsers?.useQuery( 
-   
-  )
-  const currentUser = allUsers?.find(user => user.token === address)
-  console.log(currentUser)
+  const currentUser = allUsers?.find(user => user.token === data?.address)
+
   const addUser = api?.users?.newUser?.useMutation({
     onSuccess: (data: any) => {
      console.log(data)
@@ -75,8 +57,8 @@ const Home: NextPage = () => {
 
   
   useEffect(() => {
-    if( address != undefined &&  allUsers != undefined ) {
-       const existingUser = allUsers?.find(user => user.token === address)
+    if( data?.address != undefined &&  allUsers != undefined ) {
+       const existingUser = allUsers?.find(user => user.token === data?.address)
        if(existingUser) {
         console.log('exists')
         console.log(existingUser)
@@ -84,15 +66,11 @@ const Home: NextPage = () => {
         } else {
         console.log('new')
         addUser.mutate({
-          token: address , name: "new user" })
+          token: data?.address , name: "new user" })
       } 
      }
-  }, [address, allUsers])
+  }, [data?.address, allUsers])
 
-  const [packageForm, setPackageForm] = useState<PackageForm>({
-    localtracker: '',
-    description: ''
-  })
 
 
   const addPackage = api?.packages?.newPackage?.useMutation({
@@ -103,67 +81,32 @@ const Home: NextPage = () => {
 
   })
   
-  const {data: allPackages} = api?.packages?.allPackages?.useQuery()
-  console.log(allPackages)
+
 
 
   return (
       <>
-         <button onClick={async () => {
-           try {
-              if(address){
-            await disconnet()
-             } else{
-              data?.connect && await data?.connect()
-          }
-         } catch (err){
-            console.log(err)
-
-        }
-       }}>{address ?  'Disonnect' : 'Connect'}</button>
+        <ConnectButton />
       <main>
         <form className="form-tracker"
         onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
           event.preventDefault()
-          console.log(packageForm.description, packageForm.localtracker)
           if(currentUser != undefined ) {
-            addPackage.mutate({localtracker: packageForm.localtracker, description: packageForm.description, ownerId:  currentUser?.id   })
-
-
+            addPackage.mutate({localtracker: data?.packageForm.localtracker as string, description: data?.packageForm.description as string, ownerId:  currentUser?.id   })
           } else {
-            console.log("no user")
-
-          }
-
-        }}
-        >
-           <input
-           placeholder="local tracking code"
-           onChange={(event:React.ChangeEvent<HTMLInputElement>) => {
-             setPackageForm({...packageForm, localtracker: event.target.value})
-
-           }}
-            />
-            <input 
-            placeholder="additional info"
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              setPackageForm({...packageForm, description: event.target.value})
-            }}
-            />
-            <button type="submit">Track Package</button>
+            console.log("need to log in")
+          }}}>
+            <CustomInputMain label="Local Tracking Number" placeholder='local tracking code' name="localtracker" setPackageForm={ data?.setPackageForm as React.Dispatch<React.SetStateAction<PackageForm>>} packageForm={data?.packageForm as PackageForm}   />
+            <CustomInputMain label="Any Description" placeholder='description' name="description" setPackageForm={ data?.setPackageForm as React.Dispatch<React.SetStateAction<PackageForm>>} packageForm={data?.packageForm as PackageForm}   />
+            <SubmitButtton label="Track PAckage" />
 
         </form>
 
 
 
        
-    
 
-        {users?.map(u => <div key={u.name}>{u.token}</div>)}
-
-       
-
-        <div>{address && address}</div>
+        <div>{data?.address && data?.address}</div>
         <Link href='admin/manage'>to admin</Link>
         
       </main>

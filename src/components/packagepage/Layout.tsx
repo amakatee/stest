@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import navdata from '../../data/statusNav.json'
 import PackageNavItem from '../elements/PackageNavItem'
-
+import ConnectButton from '../elements/ConnectButton'
 
 interface Props {
     children: React.ReactNode;
@@ -15,6 +15,7 @@ export default function Layout({ children } : Props) {
   return (
     <>
         <div className="ent-page">
+          <ConnectButton />
        
   
         <main className="package-page">
