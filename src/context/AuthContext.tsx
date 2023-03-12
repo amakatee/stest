@@ -31,13 +31,8 @@ interface StateContextType  {
     })[] | undefined,
     currentUser: (User & {
         package: Package[];
-    }) | undefined,
+    }) | undefined
 
-    allPackages: any,
-    domesticPackages: Package[] | undefined,
-    storagePackages: Package[] | undefined,
-    paymentPackages:  Package[] | undefined,
-    receiptPackages: Package[] | undefined
 
 }
 
@@ -58,18 +53,8 @@ export function StateContextProvider({children} : Props)  {
      const address = useAddress()
      const disconnect = useDisconnect()
 
-     const allPackages = api?.packages?.allPackages.useQuery()
-
-    
-
      const {data: allUsers, isLoading: LoadingUsers} = api?.users?.allUsers?.useQuery()
      const currentUser = allUsers?.find(user => user.token === address)
-
-     const domesticPackages = currentUser?.package?.filter(pack => pack.status === "DOMESTIC")
-     const storagePackages = currentUser?.package?.filter(pack => pack.status === "STORAGE")
-     const paymentPackages = currentUser?.package?.filter(pack => pack.status === "PAYMENT")
-     const receiptPackages = currentUser?.package?.filter(pack => pack.status === "RECEIPT")
-
 
      
 
@@ -86,13 +71,7 @@ export function StateContextProvider({children} : Props)  {
         address,
         disconnect,
         allUsers,
-        currentUser,
-        allPackages,
-        domesticPackages,
-        storagePackages,
-        paymentPackages,
-        receiptPackages
-    
+        currentUser
     }
   
     
@@ -107,10 +86,5 @@ export function StateContextProvider({children} : Props)  {
 
 export const useStateContext = () => useContext(StateContext)
 export default StateContext
-
-
-
-
-
 
 

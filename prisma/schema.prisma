@@ -34,7 +34,7 @@ model Package {
   createdAt DateTime      @default(now())
   owner     User?        @relation(fields: [ownerId], references: [id])
   ownerId   String?        @db.ObjectId
-  status    PackageStatus @default(AWAITS)
+  status    PackageStatus @default(DOMESTIC)
   recipient String?
   country   String?
   type      String?

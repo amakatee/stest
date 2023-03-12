@@ -1,12 +1,13 @@
 import { type NextPage } from "next";
-import { usersRouter } from "../../server/api/routers/users";
+import { useRouter } from "next/router";
 import { api } from "../../utils/api";
-import Link from "next/link";
+
 
 
 
 const Manage : NextPage = () => {
     const {data: allUsers} = api?.users?.allUsers?.useQuery()
+    const router = useRouter()
 
     return (
         <>
@@ -14,16 +15,14 @@ const Manage : NextPage = () => {
             <thead>
                 <tr>
                     <th>User:</th>
-                    <th>packages</th>
+                    <th>packages:</th>
                 </tr>
             </thead>
             {allUsers?.map(user =>  <tbody key={user.id}>
-               <Link href={`${user.id}`}> 
-                <tr>
-                    <td>{user.token.slice(-8)}</td>
+                <tr onClick={() => router.push(`${user.id}`)}>
+                    <td>{user.token.slice(0, 6)}</td>
                     <td> {user.package.length}</td>
                 </tr> 
-                </Link>
             </tbody> 
             )}
         </table>

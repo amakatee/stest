@@ -4,8 +4,9 @@ import Link from 'next/link'
 
 
 type Props = {
-    
-    owner: string,
+    userToken?:string,
+    localtracker: string,
+    description?: string,
     status: string,
     recipient?: string,
     country?: string,
@@ -16,7 +17,7 @@ type Props = {
   }
 
 
-const SinglePackageItem = ({owner, recipient, country, type, weight, billing, tracking }: Props) : ReactElement => {
+const SinglePackageItem = ({userToken, localtracker,description, recipient, country, type, weight, billing, tracking }: Props) : ReactElement => {
 
     return (
         <li className='box'>
@@ -24,7 +25,9 @@ const SinglePackageItem = ({owner, recipient, country, type, weight, billing, tr
                 <img  src='../box.png' />
             </div>
             <div className='single-p-m'>
-               {owner &&  <p><span>Local tracker:</span> {owner}</p>}
+               {userToken &&  <p><span>User:</span> {userToken.slice(0, 5)}</p>} 
+               {localtracker &&  <p><span>Local tracker:</span> {localtracker}</p>}
+               {description &&  <p><span>Description:</span> {description}</p>}
                {weight && <p><span>Weight:</span> {weight}</p>}
                {recipient &&  <p><span>Recipient:</span> {recipient}</p>} 
                {country && <p><span>Country:</span> {country}</p>}

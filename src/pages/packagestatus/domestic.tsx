@@ -11,23 +11,14 @@ import { Package} from "@prisma/client";
 import { useStateContext } from "../../context/StateContext";
 
 const Packages : NextPage = () => {
-    const p = api?.packages?.allPackages.useQuery()
-    const packages =  p?.data?.filter(pack => pack.status==="DOMESTIC")
     
-    const value = useStateContext()
-    console.log(value?.address)
-    // const {pack  } = useContext(StateContext)
-    // console.log(pack )
-  
+    const data = useStateContext()
     return (
         <Layout>
-               {packages?.length ?  packages.map((pack, i) =>  
-                <SinglePackageItem key={i} owner={pack.localtracker as string} status={pack.status}  />
-             
-            ) : <div>no data</div>}
-           
-     
-       </Layout>
+               {data?.domesticPackages?.length ?  data?.domesticPackages?.map((pack, i) =>  
+                <SinglePackageItem key={i} userToken={data?.currentUser?.token as string} localtracker={pack.localtracker as string} description={pack?.description as string} status={pack.status}  />
+              ) : <div>no Packages found</div>}
+        </Layout>
       
     )
 

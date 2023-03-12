@@ -89,7 +89,7 @@ const User : NextPage = () => {
     return (
         <main className="user-main"> 
         
-        <div className="user-token ">  {currentUser?.token.slice(-9)} </div>
+        <div className="user-token ">  {currentUser?.token.slice(0, 6)} </div>
         <div className="forms">
 
             {formData?.map(pack => <form className="form" key={pack.id} onSubmit={(e:  React.FormEvent<HTMLFormElement>) => getPackageData(e, pack.id)}>
