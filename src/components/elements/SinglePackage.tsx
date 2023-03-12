@@ -24,7 +24,7 @@ const SinglePackageItem = ({owner, recipient, country, type, weight, billing, tr
                 <img  src='../box.png' />
             </div>
             <div className='single-p-m'>
-               {owner &&  <p><span>Owner:</span> {owner}</p>}
+               {owner &&  <p><span>Local tracker:</span> {owner}</p>}
                {weight && <p><span>Weight:</span> {weight}</p>}
                {recipient &&  <p><span>Recipient:</span> {recipient}</p>} 
                {country && <p><span>Country:</span> {country}</p>}

@@ -1,10 +1,73 @@
-import { createContext, ReactElement } from "react";
+import { createContext, ReactElement, ReactNode, useContext, useState } from "react";
+import { api } from "../utils/api";
+import { Package, PackageStatus } from "@prisma/client";
+import { useDisconnect, useMetamask, useAddress } from "@thirdweb-dev/react";
+
+
+interface StateContextType  {
+    connect: () => Promise<{
+        data?: any| undefined;
+        error?: Error | undefined;
+    } | {
+        error: Error;
+    }>,
+    address: string | undefined
+    user: string,
+    setUser: React.Dispatch<React.SetStateAction<string>>
+
+    // disconnect: () => Promise<void | {
+    //     data?: ConnectorData<any> | undefined;
+    //     error?: Error | undefined;
+    // }>
+
+
+}
+
+
+type Props = {
+    children?: ReactNode | undefined;
+};
+
+
+
+const StateContext = createContext<null | StateContextType>(null)
+
+export function StateContextProvider({children} : Props)  {
+    const [user, setUser] = useState('userq2')
+     const connect = useMetamask()
+     const address = useAddress()
+    // const disconnet = useDisconnect()
+    const value = {
+        connect,
+        user,
+        setUser,
+        address
+    }
+  
+    
+ 
+
+    return (
+    <StateContext.Provider value={value }>
+        {children}
+    </StateContext.Provider>
+)}
+
+
+export const useStateContext = () => useContext(StateContext)
+export default StateContext
+
+
+
+
+
+
 //  import { useContext } from "react";
 // import { useContract, useAddress, useMetamask,useContractWrite, useDisconnect } from "@thirdweb-dev/react";
 
 
 // // type ContextType = {
-// //     address: string | undefined,
+// //     adress: string | undefined
 // //     contract: any,
 // //     a: string | undefined,
 // //     createCampaign: any,
@@ -76,3 +139,20 @@ import { createContext, ReactElement } from "react";
 
 //  export const useStateContext = () => useContext(StateContext)
 // // export default StateContext
+
+
+// createContext<Partial<Package[] | undefined>>([{ id: '',
+//     createdAt: new Date(),
+//     ownerId: '',
+//     status: PackageStatus.AWAITS,
+//     recipient: '',
+//     country: '',
+//     type:'',
+//     weight: '',
+//     billing:'',
+//     tracking: '',
+//     description:'',
+//     localtracker:'',
+//     statusval: '',
+// }])
+

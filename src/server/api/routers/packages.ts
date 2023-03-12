@@ -81,53 +81,7 @@ export const packagesRouter = createTRPCRouter({
         }
     }),
 
-    updateStorageData: publicProcedure
-    .input (z.object({
-        id: z.string(),
-        weight: z.string(),
-       
-
-
-    }))
-    .mutation(async({ctx, input }) => {
-        try {
-            return await ctx?.prisma?.package.update({
-                where: {
-                    id: input.id
-                },
-                data: {
-                    weight: input.weight
-                }
-            })
-
-        }catch(err) {
-            console.log(err)
-        }
-    }),
-
-    updatePaymentData: publicProcedure
-    .input(z.object({
-        id: z.string(),
-        
-        billing: z.string(),
-     
-    }))
-    .mutation(async({ctx, input}) => {
-        try {
-           return await ctx?.prisma?.package?.update({
-             where : {
-                id: input.id
-             },
-             data: {
-                billing: input.billing,
-                 
-             }
-           })
-
-        } catch(err) {
-            console.log(err)
-        }
-    }),
+    
     updateData: publicProcedure
     .input(z.object({
         id: z.string(),
@@ -158,7 +112,26 @@ export const packagesRouter = createTRPCRouter({
         } catch(err) {
             console.log(err)
         }
-    })
+    }),
+
+    // deletePackage: publicProcedure
+    // .input(z.object({
+    //     id: z.string()
+    // }))
+    // .mutation(async({ctx, input}) => {
+    //     try  {
+    //         return await ctx.prisma.package.delete({
+    //             where: {
+    //                 id: input.id
+    //             }
+    //         })
+
+    //     } catch(err) {
+    //         console.log(err)
+
+    //     }
+        
+    // }
 
 })
 

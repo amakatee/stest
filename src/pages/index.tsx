@@ -8,6 +8,7 @@ import MainLayout from '../components/MainLayout'
 // import { useStateContext } from "../context/StateContext";
 import { api } from "../utils/api";
 import { useDisconnect, useMetamask, useAddress } from "@thirdweb-dev/react";
+import {useStateContext } from '../context/StateContext'
 
 
 
@@ -50,49 +51,27 @@ interface ExistingUser {
 
 const Home: NextPage = () => {
   // const {connect, address, disconnet} = useStateContext()
-  const connect = useMetamask()
+  // const connect = useMetamask()
   const address = useAddress()
   const disconnet = useDisconnect()
 
+  const data = useStateContext()
  
-
-
-  const utils = api.useContext();
-  const [form, setForm] = useState<PaymentForm>({
-    title: '',
-    description: "helllo",
-    address:'',
-    target: '',
-    payment: .1,
-    image:''
-
-
-
-  })
-  const [ users, setUsers] = useState<User[]>()
-  const [formData, setFormaData] = useState<FormData>({
-    token: '',
-    name: ''
-  })
-  const [existingUser, setExistingUser] = useState<ExistingUser>()
-
   
+  const utils = api.useContext();
 
+  const [ users, setUsers] = useState<User[]>()
   const {data: allUsers, isLoading} = api?.users?.allUsers?.useQuery( 
    
-    
   )
   const currentUser = allUsers?.find(user => user.token === address)
   console.log(currentUser)
-
-
- 
- const addUser = api?.users?.newUser?.useMutation({
+  const addUser = api?.users?.newUser?.useMutation({
     onSuccess: (data: any) => {
      console.log(data)
       // setUsers(prev => [...prev, data])
     }
-})
+  })
 
   
   useEffect(() => {
@@ -135,7 +114,7 @@ const Home: NextPage = () => {
               if(address){
             await disconnet()
              } else{
-            await connect()
+              data?.connect && await data?.connect()
           }
          } catch (err){
             console.log(err)
@@ -177,27 +156,8 @@ const Home: NextPage = () => {
 
 
 
-        {/* <form onSubmit={(event : React.FormEvent) => {
-          event.preventDefault()
-          console.log("hello")
        
-          addUser.mutate({
-            token: formData.token , name: formData.name
-          })
-
-        }}>
-        <input 
-        placeholder="token"
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormaData({...formData, token: e.target.value}) }
-
-        />
-        <input 
-        placeholder="name"
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormaData({...formData, name: e.target.value}) }
-        />
-        <button type="submit">Submiy</button>
-
-        </form> */}
+    
 
         {users?.map(u => <div key={u.name}>{u.token}</div>)}
 
