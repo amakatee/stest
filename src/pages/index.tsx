@@ -81,7 +81,7 @@ const Home: NextPage = () => {
           onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
             event.preventDefault()
             if(data?.currentUser != undefined ) {
-              addPackage.mutate({localtracker: data?.packageForm.localtracker as string, description: data?.packageForm.description as string, ownerId:  data?.currentUser?.id   })
+              addPackage.mutate({localtracker: data?.packageForm.localtracker, description: data?.packageForm.description , ownerId:  data?.currentUser?.id   })
             } else {
               console.log("need to log in")
             }}}>
