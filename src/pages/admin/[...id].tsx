@@ -75,6 +75,8 @@ const User : NextPage = () => {
                 country: existingPackage.country as string || "",
                 type: existingPackage.type as string || "",
                 tracking: existingPackage.tracking as string || "",
+                checked: existingPackage.checked as boolean || false,
+                usermessage: existingPackage.usermessage as string || ""
 
             })
             
@@ -102,6 +104,8 @@ const User : NextPage = () => {
                 <CustomInput label="recipient" name="recipient" id={pack.id} placeholderValue="recipient"   property={pack.recipient} setFormData={setFormData} formData={formData}  /> 
                 <CustomInput label="type" name="type" id={pack.id} placeholderValue="type"   property={pack.type} setFormData={setFormData} formData={formData}  /> 
                 <CustomInput label="tracking" name="tracking" id={pack.id} placeholderValue="tracking"   property={pack.tracking} setFormData={setFormData} formData={formData}  /> 
+                <CustomInput label="user Message" name="usermessage" id={pack.id} placeholderValue="usr message"   property={pack.usermessage} setFormData={setFormData} formData={formData}  /> 
+
 
 
                 <select

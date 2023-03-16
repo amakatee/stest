@@ -91,6 +91,8 @@ export const packagesRouter = createTRPCRouter({
         country: z.string(),
         type: z.string(),
         tracking: z.string(),
+        checked: z.boolean(),
+        usermessage:z.string()
      
     }))
     .mutation(async({ctx, input}) => {
@@ -106,6 +108,8 @@ export const packagesRouter = createTRPCRouter({
                 country: input.country,
                 type: input.type,
                 tracking: input.tracking,
+                checked: input.checked,
+                usermessage: input.usermessage
              }
            })
 
@@ -131,7 +135,52 @@ export const packagesRouter = createTRPCRouter({
 
         }
         
-    })
+    }),
+    updateChecked: publicProcedure
+    .input(z.object({
+        id: z.string(),
+        checked: z.boolean(),
+     
+    }))
+    .mutation(async({ctx, input}) => {
+        try {
+           return await ctx?.prisma?.package?.update({
+             where : {
+                id: input.id
+             },
+             data: {
+               
+                checked: input.checked
+             }
+           })
+
+        } catch(err) {
+            console.log(err)
+        }
+    }),
+
+    updateUserMessage: publicProcedure
+    .input(z.object({
+        id: z.string(),
+        usermessage: z.string(),
+     
+    }))
+    .mutation(async({ctx, input}) => {
+        try {
+           return await ctx?.prisma?.package?.update({
+             where : {
+                id: input.id
+             },
+             data: {
+               
+                usermessage: input.usermessage
+             }
+           })
+
+        } catch(err) {
+            console.log(err)
+        }
+    }),
 
 })
 

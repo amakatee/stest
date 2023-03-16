@@ -43,7 +43,8 @@ model Package {
   tracking  String?
   description String?
   localtracker String?
-  statusval     String? 
+  checked      Boolean?   @default(false)
+  usermessage  String?    
 
   @@index([ownerId])
 
