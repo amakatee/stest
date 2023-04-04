@@ -27,7 +27,7 @@ const CustomInput = ({label, name, id, placeholderValue ,  property, setFormData
                 type="number"
                 value={property as number}
                 placeholder={placeholderValue}
-                onChange={(e: any ) => {
+                onChange={(e: React.ChangeEvent<HTMLInputElement> ) => {
                     setFormData(formData.map( item => {
                         if(item.id === id) {
                             Object.entries(item).map(([key, value]) => {
