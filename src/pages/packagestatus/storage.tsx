@@ -77,9 +77,9 @@ const Storage : NextPage = () => {
 
 
      const pickedPackages =  storageBoxes?.filter(box => box.checked === true)
-        let newsa = pickedPackages?.map(box => box.weight)
-        console.log(newsa)
-        let weightSum = newsa?.reduce((total , item ) => (total as number)  + (item as number), 0 )
+        const packWeight = pickedPackages?.map(box => box.weight)
+        console.log(packWeight)
+        const weightSum = packWeight?.reduce((total , item ) => (total as number)  + (item as number), 0 )
          console.log(weightSum)
  
 
@@ -154,7 +154,7 @@ const packChoosenPackages = () => {
            {storageBoxes?.length ? [...storageBoxes]?.map((pack, i) =>  
               
                  
-                <SinglePackageItem key={i} packid= {pack?.id as string}localtracker={pack?.localtracker as string} status={pack.status} recipient={pack?.recipient as string}  billing={pack.billing as number } type={pack.type as string} weight={pack.weight as number} checked={pack?.checked as boolean} handleCheckbox={handleCheckbox} boxes={storageBoxes as Package[] | undefined} usermessage={pack?.usermessage as string}  />) 
+                <SinglePackageItem key={i} packid= {pack?.id }localtracker={pack?.localtracker as string} status={pack.status} recipient={pack?.recipient as string}  billing={pack.billing as number } type={pack.type as string} weight={pack.weight as number} checked={pack?.checked as boolean} handleCheckbox={handleCheckbox} boxes={storageBoxes as Package[] | undefined} usermessage={pack?.usermessage as string}  />) 
                 : <div> no data</div>}
      </Layout>
      </>
