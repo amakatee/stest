@@ -31,31 +31,31 @@ const Storage : NextPage = () => {
     const ctx = api.useContext();
 
     const {mutate} = api?.packages?.updateChecked.useMutation({
-        onSuccess: (data) => {
+        onSuccess: async (data) => {
             console.log(data)
    
-            ctx.packages.allPackages.invalidate()
+          await ctx.packages.allPackages.invalidate()
           }
     })
     const {mutate: updateStatus} = api?.packages.updatePackage.useMutation({
-        onSuccess: () => {
-            ctx.packages.allPackages.invalidate()
+        onSuccess: async () => {
+           await  ctx.packages.allPackages.invalidate()
           }
 
     }) 
 
     const {mutate: updateMessage} = api?.packages?.updateUserMessage.useMutation({
-        onSuccess: () => {
-            ctx.packages.allPackages.invalidate()
+        onSuccess: async () => {
+          await  ctx.packages.allPackages.invalidate()
            
           }
     })
 
     const {mutate: createOrder} = api?.orders?.createPacking?.useMutation({
-        onSuccess: () => {
+        onSuccess: async () => {
             
   
-            ctx.orders.getAllPackingOrders.invalidate()
+           await ctx.orders.getAllPackingOrders.invalidate()
        
           }
     })

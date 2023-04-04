@@ -34,7 +34,7 @@ const CustomInput = ({label, name, id, placeholderValue ,  property, setFormData
                               console.log(key, value)
                             })
                           
-                            return {...item, [name]: e.target.valueAsNumber as number }
+                            return {...item, [name]: e.target.valueAsNumber  }
                         } else {
                             return item
                         }
