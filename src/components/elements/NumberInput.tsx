@@ -8,13 +8,13 @@ type Props = {
     name: string,
     id: string,
     placeholderValue: string,
-    property: string | null | undefined | number,
+    property:  number | null,
     setFormData: (value: React.SetStateAction<Package[] | undefined>) => void,
     formData: Package[]
   }
 
 const CustomInput = ({label, name, id, placeholderValue ,  property, setFormData, formData } : Props) : ReactElement => {
-    const [s , seS] = useState<string | null >('d')
+   
    
 
    
@@ -23,17 +23,18 @@ const CustomInput = ({label, name, id, placeholderValue ,  property, setFormData
     return (
         <label>{label}: 
             <input
-                name="weight"
-                value={property as string || ""}
+                name={name}
+                type="number"
+                value={property as number}
                 placeholder={placeholderValue}
-                onChange={(e:  React.ChangeEvent<HTMLInputElement>) => {
+                onChange={(e: any ) => {
                     setFormData(formData.map( item => {
                         if(item.id === id) {
                             Object.entries(item).map(([key, value]) => {
-                              console.log(key)
+                              console.log(key, value)
                             })
                           
-                            return {...item, [name]: e.target.value }
+                            return {...item, [name]: e.target.valueAsNumber as number }
                         } else {
                             return item
                         }

@@ -30,7 +30,9 @@ export const usersRouter = createTRPCRouter({
         try {
             const users = ctx?.prisma?.user?.findMany({
                 include: {
-                    package: true
+                    package: true,
+                    address:true,
+                    packingorder: true
                 }
             })
             console.log(users)

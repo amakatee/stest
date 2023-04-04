@@ -1,4 +1,4 @@
-import { createContext, ReactElement, ReactNode, useContext, useState } from "react";
+import { createContext, ReactElement, ReactNode, useContext, useEffect, useState } from "react";
 import { api } from "../utils/api";
 import { Package, PackageStatus, User } from "@prisma/client";
 import type {ConnectorData} from 'wagmi'
@@ -37,7 +37,10 @@ interface StateContextType  {
     domesticPackages: Package[] | undefined,
     storagePackages: Package[] | undefined,
     paymentPackages:  Package[] | undefined,
-    receiptPackages: Package[] | undefined
+    receiptPackages: Package[] | undefined,
+    storageBoxes: Package[]  | undefined,
+    setStorageBoxes: React.Dispatch<React.SetStateAction<Package[] | undefined>>,
+ 
 
 }
 
@@ -70,14 +73,18 @@ export function StateContextProvider({children} : Props)  {
      const paymentPackages = currentUser?.package?.filter(pack => pack.status === "PAYMENT")
      const receiptPackages = currentUser?.package?.filter(pack => pack.status === "RECEIPT")
 
+     const  [ storageBoxes , setStorageBoxes] = useState<Package[] | undefined>(storagePackages )
 
-     
+   
 
      
     const [packageForm, setPackageForm] = useState<PackageForm>({
         localtracker: '',
         description: ''
     })
+
+   
+ 
 
     const value = {
         connect,
@@ -91,7 +98,10 @@ export function StateContextProvider({children} : Props)  {
         domesticPackages,
         storagePackages,
         paymentPackages,
-        receiptPackages
+        receiptPackages,
+        storageBoxes,
+        setStorageBoxes,
+       
     
     }
   

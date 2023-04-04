@@ -5,6 +5,8 @@ import {PackageStatus} from "@prisma/client";
 import { id } from "ethers/lib/utils";
 
 
+type PackStat = "STORAGE" | "PAYMENT"
+
 export const packagesRouter = createTRPCRouter({
     newPackage: publicProcedure
     .input(z.object({
@@ -85,8 +87,8 @@ export const packagesRouter = createTRPCRouter({
     updateData: publicProcedure
     .input(z.object({
         id: z.string(),
-        weight: z.string(),
-        billing: z.string(),
+        weight: z.number(),
+        billing: z.number(),
         recipient: z.string(),
         country: z.string(),
         type: z.string(),
@@ -97,6 +99,7 @@ export const packagesRouter = createTRPCRouter({
     }))
     .mutation(async({ctx, input}) => {
         try {
+            console.log( input?.weight)
            return await ctx?.prisma?.package?.update({
              where : {
                 id: input.id
@@ -181,6 +184,43 @@ export const packagesRouter = createTRPCRouter({
             console.log(err)
         }
     }),
+
+    
+    getByStatus: publicProcedure
+    .input(
+        z.object({
+            status: z.string(),
+        
+          
+        })
+    )
+ 
+    .query(async( { ctx, input }) => {
+
+        try {
+            let i
+            if(input.status === "STORAGE") {
+                i = PackageStatus.STORAGE
+            } else if (input.status === "PAYMENT"){
+                i = PackageStatus.PAYMENT
+            } else if (input.status === "DOMESTIC"){
+                i = PackageStatus.DOMESTIC
+            } else if (input.status === "RECIEPT"){
+                i = PackageStatus.RECEIPT
+            }
+           const packages = ctx?.prisma?.package?.findMany({
+                where: {
+                    status: i
+                }
+            })
+            return packages
+        } catch(err) {
+            console.log(err)
+
+        }
+    }),
+
+    
 
 })
 

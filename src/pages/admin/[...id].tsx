@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import React from "react";
 import { Package, PackageStatus } from "@prisma/client";
 import CustomInput from "../../components/elements/CustomInput";
+import NumberInput from '../../components/elements/NumberInput'
 
 
 
@@ -69,8 +70,8 @@ const User : NextPage = () => {
         if(existingPackage){
             updatePackageData({
                 id:existingPackage.id,
-                weight: existingPackage.weight as string || ""  ,
-                billing: existingPackage.billing as string || "" ,
+                weight: existingPackage.weight as number || 0 ,
+                billing: existingPackage.billing as number || 0 ,
                 recipient: existingPackage.recipient as string || "",
                 country: existingPackage.country as string || "",
                 type: existingPackage.type as string || "",
@@ -98,8 +99,8 @@ const User : NextPage = () => {
                 <p><span>local tracker: </span>{pack.localtracker}</p>
                 <p><span>description: </span>{pack.description}</p>
                
-                <CustomInput label="weight" name="weight" id={pack.id} placeholderValue="weight"   property={pack.weight} setFormData={setFormData} formData={formData}  /> 
-                <CustomInput label="billing" name="billing" id={pack.id} placeholderValue="billing"   property={pack.billing} setFormData={setFormData} formData={formData}  /> 
+                <NumberInput label="weight" name="weight" id={pack.id} placeholderValue="weight"   property={pack.weight} setFormData={setFormData} formData={formData}  /> 
+                <NumberInput label="billing" name="billing" id={pack.id} placeholderValue="billing"   property={pack.billing} setFormData={setFormData} formData={formData}  /> 
                 <CustomInput label="country" name="country" id={pack.id} placeholderValue="country"   property={pack.country} setFormData={setFormData} formData={formData}  /> 
                 <CustomInput label="recipient" name="recipient" id={pack.id} placeholderValue="recipient"   property={pack.recipient} setFormData={setFormData} formData={formData}  /> 
                 <CustomInput label="type" name="type" id={pack.id} placeholderValue="type"   property={pack.type} setFormData={setFormData} formData={formData}  /> 

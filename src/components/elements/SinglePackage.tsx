@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import React, { ReactElement, useState } from 'react'
 import Link from 'next/link'
+import { Package } from '@prisma/client'
 
 
 interface CheckedItem { 
@@ -17,17 +18,17 @@ type Props = {
     recipient?: string,
     country?: string,
     type?: string,
-    weight?: string,
-    billing?:string,
+    weight?: number,
+    billing?:number,
     tracking?: string,
     checked?: boolean,
     handleCheckbox?: (e: React.ChangeEvent<HTMLInputElement>, id: string) => void,
-    checkedBox?:any,
+    boxes?: Package[] | undefined,
     usermessage?: string
   }
 
 
-const SinglePackageItem = ({ packid, userToken, localtracker,description, recipient, country, type, weight, billing, tracking, checked, handleCheckbox , checkedBox, usermessage}: Props) : ReactElement => {
+const SinglePackageItem = ({ packid, userToken, localtracker,description, recipient, country, type, weight, billing, tracking, checked, handleCheckbox , boxes, usermessage}: Props) : ReactElement => {
 
 
  
@@ -40,7 +41,7 @@ const SinglePackageItem = ({ packid, userToken, localtracker,description, recipi
                 <input 
                  name={packid}
                  type="checkbox"
-                 checked={checkedBox?.find((box : any)  => box.id === packid).checked}
+                 checked={boxes?.find((box )  => box.id === packid)?.checked as boolean}
                  onChange={(e: React.ChangeEvent<HTMLInputElement> ) =>{ if(handleCheckbox != undefined) {handleCheckbox(e, packid as string)} else { console.log('und')}}}
                  
                 />
