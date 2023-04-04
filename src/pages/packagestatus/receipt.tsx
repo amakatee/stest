@@ -9,7 +9,7 @@ const Receipt : NextPage = () => {
     return (
         <Layout>
             {data?.receiptPackages?.length ? data?.receiptPackages?.map((pack, i) =>  
-                <SinglePackageItem key={i} localtracker={pack?.localtracker as string} status={pack.status} recipient={pack.recipient as string}  billing={pack.billing as string} type={pack.type as string}  weight={pack.weight as string} />
+                <SinglePackageItem key={i} localtracker={pack?.localtracker as string} status={pack.status} recipient={pack.recipient as string}  billing={pack.billing as number} type={pack.type as string}  weight={pack.weight as number} />
              
             ) : <div> no data</div>}
            
