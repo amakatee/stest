@@ -9,7 +9,7 @@ const Payment : NextPage = () => {
     const data = useStateContext()
     const currentUserPackages = data?.currentUser?.package.map(pack => pack)
   
-    const [packageDetail, setPackageDetail] = useState({show:true, id: ""})
+    const [packageDetail, setPackageDetail] = useState({show:false, id: ""})
 
 
     // data?.currentUser?.packingorder?.map((pack) => console.log(pack))

@@ -24,7 +24,7 @@ const PackingPageDetail = ({id} : Props) : ReactElement => {
 
     return (
         // <div>hello {packages?.packageids} {JSON.stringify(packages?.createdAt)}
-        <div>{existingPacks?.map(pack => <div> {pack.localtracker}</div>)}</div>
+        <div>{existingPacks?.map(pack => <div key={pack.id}> {pack.localtracker}</div>)}</div>
        
         )
    }    
