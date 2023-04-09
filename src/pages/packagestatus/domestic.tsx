@@ -2,20 +2,21 @@ import { type NextPage } from "next";
 // import p from '../../data/packageStatus.json'
 // import { useStateContext } from "../../context/StateContext";
 import Layout from "../../components/packagepage/Layout";
-import StateContext from "../../context/StateContext";
-import { StateContextProvider } from "../../context/StateContext";
 import SinglePackageItem from '../../components/elements/SinglePackage'
-import { api } from "../../utils/api";
-import { useContext, useEffect } from "react";
 import { Package} from "@prisma/client";
 import { useStateContext } from "../../context/StateContext";
-
+import { useState, useEffect } from "react";
 const Packages : NextPage = () => {
     
     const data = useStateContext()
+    const [domestic, setDomestic ] = useState<Package[] | undefined>(data?.domesticPackages)
+
+    useEffect(() => {
+        setDomestic(data?.domesticPackages)
+    },[data?.domesticPackages])
     return (
         <Layout>
-               {data?.domesticPackages?.length ?  data?.domesticPackages?.map((pack, i) =>  
+               {domestic?.length ?  [...domestic]?.map((pack, i) =>  
                 <SinglePackageItem key={i} userToken={data?.currentUser?.token as string} localtracker={pack.localtracker as string} description={pack?.description as string} status={pack.status}  />
               ) : <div>no Packages found</div>}
         </Layout>

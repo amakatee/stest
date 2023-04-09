@@ -1,8 +1,10 @@
 import { createContext, ReactElement, ReactNode, useContext, useState } from "react";
 import { api } from "../utils/api";
-import { Package, PackageStatus, User } from "@prisma/client";
+import type { Package, PackingOrder, Address, User } from "@prisma/client";
 import type {ConnectorData} from 'wagmi'
 import { useDisconnect, useMetamask, useAddress } from "@thirdweb-dev/react";
+
+
 
 
 
@@ -28,10 +30,10 @@ interface StateContextType  {
     }>,
     allUsers:  (User & {
         package: Package[];
-    })[] | undefined,
+    } & {packingorder: PackingOrder[]})[] | undefined,
     currentUser: (User & {
         package: Package[];
-    }) | undefined
+    } &{ packingorder :PackingOrder[]}) | undefined
 
 
 }

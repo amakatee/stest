@@ -7,6 +7,7 @@ export const ordersRouter = createTRPCRouter({
     .input(z.object({
         ownerId: z.string(),
         packageids: z.string().array(),
+        orderno: z.string()
         
      
         
@@ -17,7 +18,8 @@ export const ordersRouter = createTRPCRouter({
             return await ctx.prisma.packingOrder.create({
                 data: {
                     packageids: input.packageids,
-                    owner: { connect: {id: input.ownerId}}
+                    owner: { connect: {id: input.ownerId}},
+                    orderno: input.orderno
                    
                    
 
@@ -31,4 +33,25 @@ export const ordersRouter = createTRPCRouter({
   getAllPackingOrders: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.packingOrder.findMany();
   }),
+
+  getPackageById: publicProcedure
+  .input(
+    z.object({
+       id: z.string()
+    })
+  )
+
+  .query(async( { ctx, input }) => {
+
+    try{
+      return await ctx.prisma.packingOrder.findFirst({
+        where: {
+          id: input.id
+        }
+      })
+
+    }catch(e) {
+      console.log(e)
+    }
+}),
 });

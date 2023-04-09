@@ -45,10 +45,11 @@ const Home: NextPage = () => {
       // setUsers(prev => [...prev, data])
     }
   })
+
+  const ctx = api.useContext();
   const addPackage = api?.packages?.newPackage?.useMutation({
-    onSuccess: (data: any) => {
-      console.log(data)
-       // setUsers(prev => [...prev, data])
+    onSuccess: async () => {
+      await  ctx.packages.allPackages.invalidate()
      }
 
   })

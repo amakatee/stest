@@ -111,20 +111,21 @@ const packChoosenPackages = () => {
 
     createOrder({
             ownerId: data?.currentUser?.id as string,
-            packageids: ids as string[]
+            packageids: ids as string[],
+            orderno: "new order"
            })
      
      pickedPackages?.map((picked, i ) => {
        
-    //      updateStatus({
-    //          id: picked.id,
-    //          status: PackageStatus.PAYMENT
-    //          })
-    //      updateMessage({
-    //          id: picked.id,
-    //          usermessage: "Packing"
+         updateStatus({
+             id: picked.id,
+             status: PackageStatus.PAYMENT
+             })
+         updateMessage({
+             id: picked.id,
+             usermessage: "Packing"
 
-    //    })
+       })
      })
 
 }

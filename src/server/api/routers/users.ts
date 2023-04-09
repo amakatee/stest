@@ -1,3 +1,5 @@
+import { User } from '@prisma/client';
+import { prisma } from './../../db';
 import { z } from "zod";
 
 import { createTRPCRouter, publicProcedure } from "../trpc";
@@ -41,6 +43,9 @@ export const usersRouter = createTRPCRouter({
 
         }
     }),
+
+    
+
     deleteUser: publicProcedure
     .input(z.object({
         id: z.string()
