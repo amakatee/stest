@@ -1,7 +1,7 @@
 import { type NextPage } from "next";
 
 import { api } from "../../utils/api";
-
+import {useStateContext} from '../../context/StateContext'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from "react";
 import React from "react";
@@ -45,9 +45,10 @@ const User : NextPage = () => {
 
     }, [allUsers])
     const [formData, setFormData] = useState<Package[] | undefined> ([])
-    console.log(formData)
 
 
+   
+    console.log(currentUser?.packingorder)
     
     const changeStatus = (id: string, newStatus: PackageStatus) => {
         addPackage({
@@ -89,10 +90,16 @@ const User : NextPage = () => {
 
 
      }
+     const packIds = currentUser?.packingorder.map(order => order.packageids)
+     console.log(packIds)
+     
     return (
         <main className="user-main"> 
         
         <div className="user-token ">  {currentUser?.token.slice(0, 6)} </div>
+
+        <div>{currentUser?.packingorder?.map(order => <div>
+        </div>)}</div>
         <div className="forms">
 
             {formData?.map(pack => <form className="form" key={pack.id} onSubmit={(e:  React.FormEvent<HTMLFormElement>) => getPackageData(e, pack.id)}>

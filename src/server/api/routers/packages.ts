@@ -220,6 +220,21 @@ export const packagesRouter = createTRPCRouter({
         }
     }),
 
+    deleteById: publicProcedure
+    .input(
+        z.object({
+            id: z.string()
+        })
+
+    )
+    .mutation(async({ctx, input}) => {
+        return await ctx.prisma.package.delete({
+            where: {
+                id: input.id
+            }
+        })
+    })
+
     
 
 })

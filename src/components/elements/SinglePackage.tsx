@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import React, { ReactElement, useState } from 'react'
 import Link from 'next/link'
 import { Package } from '@prisma/client'
-
+import { api } from "../../utils/api";
 
 interface CheckedItem { 
     id: string,
@@ -11,6 +11,7 @@ interface CheckedItem {
 
 type Props = {
     packid?: string,
+
     userToken?:string,
     localtracker: string,
     description?: string,
@@ -31,12 +32,13 @@ type Props = {
 const SinglePackageItem = ({ packid, userToken, localtracker,description, recipient, country, type, weight, billing, tracking, checked, handleCheckbox , boxes, usermessage}: Props) : ReactElement => {
 
 
- 
+ const {mutate: deletePackage } = api?.packages.deleteById.useMutation()
    
 
 
     return (
         <li className='box'>
+      
             <div>
                 <input 
                  name={packid}
@@ -46,6 +48,8 @@ const SinglePackageItem = ({ packid, userToken, localtracker,description, recipi
                  
                 />
             </div>
+
+
             <div className='single-p-img'>
                 <img  src='../box.png' />
             </div>
@@ -60,6 +64,9 @@ const SinglePackageItem = ({ packid, userToken, localtracker,description, recipi
                {billing && <p><span>Billing:</span> {billing}</p>}
                {tracking && <p><span>Tracking:</span> {tracking}</p>}
                {usermessage && <p><span> Package Status: </span>{usermessage}</p>}
+            </div>
+            <div>
+                <button onClick={() => deletePackage({id:packid as string})} type='button'>Delete</button>
             </div>
         
         </li>
