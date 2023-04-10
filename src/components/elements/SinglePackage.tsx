@@ -11,7 +11,8 @@ interface CheckedItem {
 
 type Props = {
     packid?: string,
-
+    storageBoxes?: Package[] | undefined,
+    setStorageBoxes?:React.Dispatch<React.SetStateAction<Package[] | undefined>>
     userToken?:string,
     localtracker: string,
     description?: string,
@@ -29,7 +30,7 @@ type Props = {
   }
 
 
-const SinglePackageItem = ({ packid, userToken, localtracker,description, recipient, country, type, weight, billing, tracking, checked, handleCheckbox , boxes, usermessage}: Props) : ReactElement => {
+const SinglePackageItem = ({ packid,setStorageBoxes,storageBoxes, userToken, localtracker,description, recipient, country, type, weight, billing, tracking, checked, handleCheckbox , boxes, usermessage}: Props) : ReactElement => {
 
 
  const {mutate: deletePackage } = api?.packages.deleteById.useMutation()
@@ -66,7 +67,11 @@ const SinglePackageItem = ({ packid, userToken, localtracker,description, recipi
                {usermessage && <p><span> Package Status: </span>{usermessage}</p>}
             </div>
             <div>
-                <button onClick={() => deletePackage({id:packid as string})} type='button'>Delete</button>
+                <button onClick={() => {
+                   setStorageBoxes && setStorageBoxes(storageBoxes?.filter(box => box.id !== packid))
+                    deletePackage({id:packid as string})}} 
+                    type='button'
+                    >Delete</button>
             </div>
         
         </li>
