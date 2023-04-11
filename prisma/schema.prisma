@@ -23,8 +23,13 @@ model Address {
    createdAt DateTime      @default(now())
    owner     User?        @relation(fields: [ownerId], references: [id])
    ownerId   String?        @db.ObjectId
-   name String?
+   firstName String?
+   secondName String?
+   phone      String?
+   zipcode    String?
    country String?
+   fulladdsress String?
+   
 }
 
 model Example {
@@ -51,12 +56,19 @@ model Package {
   @@index([ownerId])
 }
 model PackingOrder {
-  id        String        @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt DateTime      @default(now())
-  owner     User?        @relation(fields: [ownerId], references: [id])
-  ownerId   String?        @db.ObjectId
+  id         String        @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt  DateTime      @default(now())
+  owner      User?        @relation(fields: [ownerId], references: [id])
+  ownerId    String?        @db.ObjectId
   packageids String[]
   orderno    String?
+  weightsum  Int?
+  billing    Int?
+  checked    Boolean?   @default(false)
+  recipient  String?
+  country    String?
+  type       String?
+  usermessage  String? 
   
  
     

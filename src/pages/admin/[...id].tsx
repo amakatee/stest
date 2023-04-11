@@ -98,8 +98,8 @@ const User : NextPage = () => {
         
         <div className="user-token ">  {currentUser?.token.slice(0, 6)} </div>
 
-        <div>{currentUser?.packingorder?.map(order => <div>
-        </div>)}</div>
+        {/* <div>{currentUser?.packingorder?.map(order => <div>
+        </div>)}</div> */}
         <div className="forms">
 
             {formData?.map(pack => <form className="form" key={pack.id} onSubmit={(e:  React.FormEvent<HTMLFormElement>) => getPackageData(e, pack.id)}>

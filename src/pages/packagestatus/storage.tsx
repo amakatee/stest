@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { Package, PackageStatus } from "@prisma/client";
 import {useRouter} from 'next/router'
 import PackingPage from '../../components/PackingPage'
+import AddAddress from '../../components/AddAddress'
 
 
 
@@ -20,6 +21,7 @@ const Storage : NextPage = () => {
     console.log(d)
     const data = useStateContext()
     const [packingPage, setPackingPage] = useState(false)
+    const [addressPage, setAddressPage] = useState(false)
    
     const initialData = data?.storagePackages
     console.log(data?.currentUser)
@@ -66,7 +68,7 @@ const Storage : NextPage = () => {
 
     
     
-     const  [ storageBoxes , setStorageBoxes] = useState<Package[] | undefined>(initialData )
+     const  [storageBoxes , setStorageBoxes] = useState<Package[] | undefined>(initialData )
   
     useEffect(() => {
         setStorageBoxes(initialData)
@@ -84,17 +86,11 @@ const Storage : NextPage = () => {
  
 
     const handleCheckbox = (e: React.ChangeEvent<HTMLInputElement> , id: string)=> {
-
-
-        
-    
         setStorageBoxes(storageBoxes?.map(box => {
             if(box.id === id) {
                 return {...box, checked: e.target.checked}
             } else { return box}
-        }) )
-        
-       
+        }))
         mutate({
             id: id,
             checked: e.target.checked
@@ -102,18 +98,24 @@ const Storage : NextPage = () => {
     } 
     
  
-const packChoosenPackages = () => {
-    console.log(pickedPackages)
-    setStorageBoxes(storageBoxes?.filter((box) =>  !pickedPackages?.includes(box)
-   ))
-    const ids = pickedPackages?.map(pack => pack.id)
-    console.log(ids,  data?.currentUser?.id)
+    const packChoosenPackages = () => {
+        setStorageBoxes(storageBoxes?.filter((box) =>  !pickedPackages?.includes(box)
+        ))
+        const ids = pickedPackages?.map(pack => pack.id)
+ 
 
-    createOrder({
-            ownerId: data?.currentUser?.id as string,
-            packageids: ids as string[],
-            orderno: "new order"
-           })
+        createOrder({
+               ownerId: data?.currentUser?.id as string,
+               packageids: ids as string[],
+               orderno: "new order",
+               weightsum: weightSum as number,
+               recipient: '',
+               country: '',
+               type: '',
+               usermessage:'' ,
+               billing: 0
+                   
+             })
      
      pickedPackages?.map((picked, i ) => {
        
@@ -132,7 +134,8 @@ const packChoosenPackages = () => {
 
     return (
         <>
-        {packingPage && <PackingPage setPackingPage={setPackingPage} pickedPackages={pickedPackages}/>}
+        {addressPage && <AddAddress setAddressPage={setAddressPage} currentUserId={data?.currentUser?.id as string}/>}
+        {packingPage && <PackingPage setPackingPage={setPackingPage} pickedPackages={pickedPackages}  />}
         <div className="fixed min-h-[3rem] top-12 bg-[white] flex ">
                 <p>picked</p>
                 <input className="text-blue bg-[#1da1f2] " id="number" type="number" value={pickedPackages?.length} />
@@ -146,7 +149,7 @@ const packChoosenPackages = () => {
                 <div>{weightSum} g</div>
                 <button onClick={() => packChoosenPackages()} type="button">pack</button>
             </div> */}
-            <div className="address">
+            <div className="address" onClick={() => setAddressPage(prev => !prev)}>
                 <div>  + Add shipping adress</div>
                 <div className="sma">no address choose</div>
              
@@ -157,7 +160,10 @@ const packChoosenPackages = () => {
                  
                 <SinglePackageItem key={i}  packid= {pack?.id } setStorageBoxes={setStorageBoxes} storageBoxes={storageBoxes} localtracker={pack?.localtracker as string} status={pack.status} recipient={pack?.recipient as string}  billing={pack.billing as number } type={pack.type as string} weight={pack.weight as number} checked={pack?.checked as boolean} handleCheckbox={handleCheckbox} boxes={storageBoxes as Package[] | undefined} usermessage={pack?.usermessage as string}  />) 
                 : <div> no data</div>}
+
+             
      </Layout>
+
      </>
       
     )

@@ -7,7 +7,13 @@ export const ordersRouter = createTRPCRouter({
     .input(z.object({
         ownerId: z.string(),
         packageids: z.string().array(),
-        orderno: z.string()
+        orderno: z.string(),
+        weightsum: z.number(),
+        recipient: z.string(),
+        country: z.string(),
+        type: z.string(),
+        usermessage: z.string() ,
+        billing: z.number()
         
      
         
@@ -19,7 +25,13 @@ export const ordersRouter = createTRPCRouter({
                 data: {
                     packageids: input.packageids,
                     owner: { connect: {id: input.ownerId}},
-                    orderno: input.orderno
+                    orderno: input.orderno,
+                    weightsum: input.weightsum,
+                    recipient: input.recipient,
+                    country: input.country,
+                    type: input.type,
+                    usermessage:input.usermessage ,
+                    billing: input.billing
                    
                    
 
