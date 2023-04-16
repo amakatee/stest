@@ -17,7 +17,15 @@ html {
   }
 
 body {
+    color: white;
+    overscroll-behavior-y: none;
+    overscroll-behavior-x: none;
     
+}
+.dark-bg-trans {
+    background-color: #0000002a;
+    backdrop-filter: blur(1rem);
+
 }
  
   /* border-right: 1px solid #1e1e1e; */
@@ -231,3 +239,7 @@ body {
       top: 5%;
       right: 0; */
   }
+
+.glowy {
+
+}  

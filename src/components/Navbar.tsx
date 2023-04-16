@@ -14,7 +14,7 @@ const Navbar = () : ReactElement => {
         <ul className='menu'>
            <Link href='/'> <li className='li'> <AiFillHome size="17"/></li></Link>
             <Link href='/packagestatus/domestic'><li className='li'><BsFillBoxSeamFill  size="16" /></li></Link>
-            <li className='li'><FaUser  size="15" /></li>
+            <li className='li '><FaUser  size="15" /></li>
         </ul>
       
       )

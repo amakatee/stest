@@ -153,20 +153,27 @@ const Storage : NextPage = () => {
         <>
         {addressPage && <AddAddress setAddressPage={setAddressPage} currentUserId={data?.currentUser?.id as string} setCurrentAddressId={setCurrentAddressId}/>}
         {packingPage && <PackingPage setPackingPage={setPackingPage} pickedPackages={pickedPackages}  />}
+        {warningMes && <div onClick={() => setWarningMes("")} className=" border-b-[.5px] py-1 dark-bg-trans fixed flex w-full justify-between px-5 py-4">
+           <p>{warningMes}</p>
+           <p>close</p>
+            </div>}
+
        
         <Layout>
             <div className="n font-light fixed">
-            <div className=" min-h-[1rem] flex justify-between items-center py-1 border-b-[.6px] border-[#00FFFFF]">
-            <div>{warningMes}</div>
-                <p>picked</p>
-                <input className="bg-transparent w-[2rem] h-[2rem] text-center text-sm" id="number" type="number" value={pickedPackages?.length} />
-                <div>{weightSum} g</div>
-                <button className=" text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 shadow-lg shadow-teal-500/50 dark:shadow-lg dark:shadow-teal-800/80 font-medium rounded-lg text-sm px-4 py-1.5 text-center mr-2 mb-2" onClick={() => packChoosenPackages()} type="button">pack</button>
+            <div className=" min-h-[1rem] flex justify-around items-center py-2 border-b-[.6px] border-[#00FFFFF]">
+        
+                <p className="glowy">Picked: </p>
+                <input className=" glowy bg-transparent w-[2rem] h-[2rem] text-center text-sm" id="number" type="number" value={pickedPackages?.length} />
+                <p className="glowy">{weightSum} g</p>
+                <button className=" text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 shadow-lg shadow-teal-500/50 dark:shadow-lg dark:shadow-teal-800/80 font-medium rounded-lg text-sm px-4 py-1.5 text-center " onClick={() => packChoosenPackages()} type="button">pack</button>
             </div>
-            <div className="flex w-[100%] text-[1rem] justify-between align-center p-1" onClick={() => setAddressPage(prev => !prev)}>
-                <div>  + Add shipping adress</div>
-                <div className="sma">{choodsenAddress && 
-                <div><p>{choodsenAddress.firstName}</p> 
+            <div className="flex w-[100%] text-[1rem] justify-between items-center px-4 py-2" onClick={() => setAddressPage(prev => !prev)}>
+                <p className="text-sm">  + Add shipping adress</p>
+
+                <div className="text-xs ">{choodsenAddress && 
+                <div className="flex gap-1 items center">
+                <p>{choodsenAddress.firstName}</p> 
                 <p>{choodsenAddress.secondName}</p>
                 <p>{choodsenAddress.country}</p>
                 </div>
@@ -175,7 +182,7 @@ const Storage : NextPage = () => {
             </div>
             </div>
           
-           <ul className="flex flex-col align-center justify-between gap-3 pt-[13vh] pb-[5vh]" >
+           <ul className="flex flex-col align-center justify-between gap-3 pt-[15vh] pb-[5vh]" >
            {storageBoxes?.length ? [...storageBoxes]?.map((pack, i) =>  
                 <SinglePackageItem key={i}  packid= {pack?.id } setStorageBoxes={setStorageBoxes} storageBoxes={storageBoxes} localtracker={pack?.localtracker as string} status={pack.status} recipient={pack?.recipient as string}  billing={pack.billing as number } type={pack.type as string} weight={pack.weight as number} checked={pack?.checked as boolean} handleCheckbox={handleCheckbox} boxes={storageBoxes as Package[] | undefined} usermessage={pack?.usermessage as string}  />) 
                 : <div> no data</div>}

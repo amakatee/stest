@@ -13,7 +13,7 @@ const PackageNavItem = ({ title, link }: Props) : ReactElement => {
     const router = useRouter()
     return (
       <Link href={link}>
-        <li  className={router.asPath === `/packagestatus/${link}` ? 'ls active' : 'ls '}>
+        <li  className={router.asPath === `/packagestatus/${link}` ? 'ls active' : 'ls glowy'}>
           {title}
        </li>
       </Link>
