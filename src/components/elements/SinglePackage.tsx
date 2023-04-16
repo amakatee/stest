@@ -43,7 +43,7 @@ const SinglePackageItem = ({ packid,setStorageBoxes,createdAt, storageBoxes, use
         <li className='box flex flex-col  px-4'>
         <div>
             <div className='flex w-full justify-between items-center py-3'>
-                 {createdAt &&  <p className='text-xs'> {format(createdAt as Date, 'PPpp')}</p>}
+                 {createdAt &&  <p className='text-xs'> {format(createdAt, 'PPpp')}</p>}
                 <button className='text-xs  ' onClick={() => {
                    setStorageBoxes && setStorageBoxes(storageBoxes?.filter(box => box.id !== packid))
                     deletePackage({id:packid as string})}} 
