@@ -38,10 +38,11 @@ const SinglePackageItem = ({ packid,setStorageBoxes,storageBoxes, userToken, loc
 
 
     return (
-        <li className='box'>
+        <li className='box flex items-center justify-around px-4'>
       
             <div>
                 <input 
+                className="w-4 h-4 text-teal-600 bg-gray-100 border-gray-300 rounded focus:ring-teal-500 dark:focus:ring-teal-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                  name={packid}
                  type="checkbox"
                  checked={boxes?.find((box )  => box.id === packid)?.checked as boolean}
@@ -58,7 +59,7 @@ const SinglePackageItem = ({ packid,setStorageBoxes,storageBoxes, userToken, loc
                {userToken &&  <p><span>User:</span> {userToken.slice(0, 5)}</p>} 
                {localtracker &&  <p><span>Local tracker:</span> {localtracker}</p>}
                {description &&  <p><span>Description:</span> {description}</p>}
-               {weight && <p><span>Weight:</span> {weight}</p>}
+               {weight && <p><span>Weight:</span> {weight} g</p>}
                {recipient &&  <p><span>Recipient:</span> {recipient}</p>} 
                {country && <p><span>Country:</span> {country}</p>}
                {type && <p><span>Type:</span> {type}</p>}
@@ -66,13 +67,13 @@ const SinglePackageItem = ({ packid,setStorageBoxes,storageBoxes, userToken, loc
                {tracking && <p><span>Tracking:</span> {tracking}</p>}
                {usermessage && <p><span> Package Status: </span>{usermessage}</p>}
             </div>
-            <div>
-                <button onClick={() => {
+          
+                <button className='text-xs  ' onClick={() => {
                    setStorageBoxes && setStorageBoxes(storageBoxes?.filter(box => box.id !== packid))
                     deletePackage({id:packid as string})}} 
                     type='button'
-                    >Delete</button>
-            </div>
+                    >Remove</button>
+            
         
         </li>
     )

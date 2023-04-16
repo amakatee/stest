@@ -63,10 +63,7 @@ background-image: linear-gradient(147deg, #000000 0%, #04619f 74%); */
 
 
 .box {
-    display: flex;
-    min-height: 5rem;
-    width: 95%;
-    margin: auto;
+    
     border-radius: 10px;
 
  
