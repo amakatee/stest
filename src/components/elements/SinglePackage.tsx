@@ -62,7 +62,7 @@ const SinglePackageItem = ({ packid,setStorageBoxes,storageBoxes, userToken, loc
                {recipient &&  <p><span>Recipient:</span> {recipient}</p>} 
                {country && <p><span>Country:</span> {country}</p>}
                {type && <p><span>Type:</span> {type}</p>}
-               {billing && <p><span>Billing:</span> {billing} $</p>}
+               {billing !==0 && <p><span>Billing:</span> {billing} $</p>}
                {tracking && <p><span>Tracking:</span> {tracking}</p>}
                {usermessage && <p><span> Package Status: </span>{usermessage}</p>}
             </div>

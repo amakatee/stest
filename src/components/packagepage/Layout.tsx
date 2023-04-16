@@ -17,7 +17,7 @@ export default function Layout({ children } : Props) {
     <>
         <section className="ent-page w-[100vw] min-h-[100vh]  ">
           <UpperNav />
-         <main className=" flex flex-col align-center pt-5 pr-5 pl-5 gap-7 ">
+         <main className=" flex flex-col align-center pt-2 pr-5 pl-5 gap-7 ">
               <ul className="main-menu flex w-[100%] align-center justify-around">
                 {navdata.map((data, i) => <PackageNavItem key={i} title={data.title} link={data.link} active={  router.asPath === data.link  ? data.active : !data.active} /> )}
               </ul>

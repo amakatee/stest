@@ -9,9 +9,9 @@ const UpperNav = () : ReactElement => {
     const data = useStateContext()
 
     return (
-        <div className=' flex justify-between items-center py-3 px-10'>
-            <ConnectButton />
+        <div className=' flex justify-between items-center py-4 px-9'>
              <p >{data?.currentUser?.token.slice(0,7)}</p>
+             <ConnectButton />
         </div>
       
       )
