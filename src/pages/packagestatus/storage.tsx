@@ -155,13 +155,13 @@ const Storage : NextPage = () => {
         {packingPage && <PackingPage setPackingPage={setPackingPage} pickedPackages={pickedPackages}  />}
        
         <Layout>
-            <div className="n ">
-            <div className="p-1 min-h-[1.5rem] flex w-[100%] justify-between">
+            <div className="n font-light fixed">
+            <div className=" min-h-[1rem] flex justify-between items-center py-1 border-b-[.6px] border-[#00FFFFF]">
             <div>{warningMes}</div>
                 <p>picked</p>
-                <input className=" bg-[#1da1f2] " id="number" type="number" value={pickedPackages?.length} />
+                <input className="bg-transparent w-[2rem] h-[2rem] text-center text-sm" id="number" type="number" value={pickedPackages?.length} />
                 <div>{weightSum} g</div>
-                <button onClick={() => packChoosenPackages()} type="button">pack</button>
+                <button className=" text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 shadow-lg shadow-teal-500/50 dark:shadow-lg dark:shadow-teal-800/80 font-medium rounded-lg text-sm px-4 py-1.5 text-center mr-2 mb-2" onClick={() => packChoosenPackages()} type="button">pack</button>
             </div>
             <div className="flex w-[100%] text-[1rem] justify-between align-center p-1" onClick={() => setAddressPage(prev => !prev)}>
                 <div>  + Add shipping adress</div>

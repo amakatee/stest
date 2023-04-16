@@ -210,7 +210,7 @@ body {
     background-color: pink;
     display: flex;
     flex-direction: column;
-    position: fixed;
+   
     width: 90vw;
     left: 50%;
     right: 50%;
