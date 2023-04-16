@@ -161,7 +161,7 @@ const Storage : NextPage = () => {
        
         <Layout>
             <div className="n font-light fixed">
-            <div className=" min-h-[1rem] flex justify-around items-center py-3 border-b-[.6px] border-[#00FFFFF]">
+            <div className=" min-h-[1rem] flex justify-around items-center py-3 white-border-line">
         
                 <p className="glowy">Picked: </p>
                 <input className=" glowy bg-transparent w-[2rem] h-[2rem] text-center text-sm" id="number" type="number" value={pickedPackages?.length} />
@@ -170,21 +170,20 @@ const Storage : NextPage = () => {
             </div>
             <div className="flex w-[100%] text-[1rem] justify-between items-center px-4 py-2" onClick={() => setAddressPage(prev => !prev)}>
                 <p className="text-sm">  + Add shipping adress</p>
-
-                <div className="text-xs ">{choodsenAddress && 
-                <div className="flex gap-1 items center">
-                <p>{choodsenAddress.firstName}</p> 
-                <p>{choodsenAddress.secondName}</p>
-                <p>{choodsenAddress.country}</p>
+               <div className="text-xs ">{choodsenAddress && 
+                 <div className="flex gap-1 items center">
+                     <p>{choodsenAddress.firstName}</p> 
+                     <p>{choodsenAddress.secondName}</p>
+                     <p>{choodsenAddress.country}</p>
                 </div>
                }</div>
              
             </div>
             </div>
           
-           <ul className="flex flex-col align-center justify-between gap-3 pt-[17vh] pb-[5vh]" >
+           <ul className="flex flex-col align-center justify-between gap-3 pt-[19vh] pb-[15vh]" >
            {storageBoxes?.length ? [...storageBoxes]?.map((pack, i) =>  
-                <SinglePackageItem key={i}  packid= {pack?.id } setStorageBoxes={setStorageBoxes} storageBoxes={storageBoxes} localtracker={pack?.localtracker as string} status={pack.status} recipient={pack?.recipient as string}  billing={pack.billing as number } type={pack.type as string} weight={pack.weight as number} checked={pack?.checked as boolean} handleCheckbox={handleCheckbox} boxes={storageBoxes as Package[] | undefined} usermessage={pack?.usermessage as string}  />) 
+                <SinglePackageItem key={i}  packid= {pack?.id } setStorageBoxes={setStorageBoxes} storageBoxes={storageBoxes} localtracker={pack?.localtracker as string} status={pack.status} recipient={pack?.recipient as string} createdAt={pack.createdAt} billing={pack.billing as number } type={pack.type as string} weight={pack.weight as number} checked={pack?.checked as boolean} handleCheckbox={handleCheckbox} boxes={storageBoxes as Package[] | undefined} usermessage={pack?.usermessage as string}  />) 
                 : <div> no data</div>}
             </ul>
              
