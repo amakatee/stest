@@ -10,7 +10,7 @@ const Manage : NextPage = () => {
     const router = useRouter()
 
     return (
-        <>
+        <section className="bg-black">
         <table>
             <thead>
                 <tr>
@@ -26,7 +26,7 @@ const Manage : NextPage = () => {
             </tbody> 
             )}
         </table>
-        </>
+        </section>
     )
 
 }

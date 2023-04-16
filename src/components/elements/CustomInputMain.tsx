@@ -21,6 +21,7 @@ const CustomInputMain = ({label,placeholder, name, setPackageForm, packageForm }
         <label> {label}:
             <input
               name={name}
+              className="inp"
               placeholder={placeholder}
               onChange={(event:React.ChangeEvent<HTMLInputElement>) => {
               setPackageForm({...packageForm, [name]: event.target.value})

@@ -77,7 +77,7 @@ const Home: NextPage = () => {
   return (
       <>
         <ConnectButton />
-        <main>
+        <main className="bg-black">
           <form className="form-tracker"
           onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
             event.preventDefault()

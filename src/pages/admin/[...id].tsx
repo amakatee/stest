@@ -110,7 +110,7 @@ const User : NextPage = () => {
      console.log(packIds)
      
     return (
-        <main className="user-main"> 
+        <main className="user-main bg-black"> 
         <div className="">
         <div className="user-token ">  {currentUser?.token.slice(0, 6)} </div>
         {currentUser?.packingorder.map(order => <div key={order.id}>
