@@ -166,7 +166,7 @@ const Storage : NextPage = () => {
                 <p className="glowy">Picked: </p>
                 <input className=" glowy bg-transparent w-[2rem] h-[2rem] text-center text-sm" id="number" type="number" value={pickedPackages?.length} />
                 <p className="glowy">{weightSum} g</p>
-                <button className=" text-white bg-gradient-to-r  from-teal-400 via-teal-500 to-teal-600  hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 shadow-lg shadow-teal-500/50 dark:shadow-lg dark:shadow-teal-800/80 font-medium rounded-lg text-sm px-4 py-1.5 text-center " onClick={() => packChoosenPackages()} type="button">pack</button>
+                <button className=" text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 shadow-lg shadow-teal-500/50 dark:shadow-lg dark:shadow-teal-800/80 font-medium rounded-lg text-sm px-4 py-1.5 text-center text-[#18383c] uppercase" onClick={() => packChoosenPackages()} type="button">pack</button>
             </div>
             <div className="flex w-[100%] text-[1rem] justify-between items-center px-4 py-2" onClick={() => setAddressPage(prev => !prev)}>
                 <p className="text-sm">  + Add shipping adress</p>
