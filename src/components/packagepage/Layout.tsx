@@ -21,7 +21,7 @@ export default function Layout({ children } : Props) {
               <ul className="main-menu flex w-[100%] align-center justify-around">
                 {navdata.map((data, i) => <PackageNavItem key={i} title={data.title} link={data.link} active={  router.asPath === data.link  ? data.active : !data.active} /> )}
               </ul>
-            <div className="w-[100%] min-h-[10vh] max-h-[85vh]  overflow-y-scroll ">
+            <div className="w-[100%] min-h-[10vh] max-h-[80vh]  overflow-y-scroll ">
             {children}
              </div>
         </main>
