@@ -119,7 +119,7 @@ const User : NextPage = () => {
        
         </div>)}
         <div>
-        {orders?.map((order, i) => <div key={i}>{order.map(pack => <div>{pack?.map(pa => <div key={pa.id}>{pa.weight} {pa.localtracker}</div>)}</div> )}</div>)}
+        {orders?.map((order, i) => <div key={i}>{order.map((pack, i) => <div key={i}>{pack?.map(pa => <div key={pa.id}>{pa.weight} {pa.localtracker}</div>)}</div> )}</div>)}
         </div>
         </div>
        

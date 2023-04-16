@@ -156,14 +156,14 @@ const Storage : NextPage = () => {
        
         <Layout>
             <div className="n ">
-            <div className=" min-h-[3rem]  bg-[white] flex">
+            <div className="p-1 min-h-[1.5rem] flex w-[100%] justify-between">
             <div>{warningMes}</div>
                 <p>picked</p>
-                <input className="text-blue bg-[#1da1f2] " id="number" type="number" value={pickedPackages?.length} />
+                <input className=" bg-[#1da1f2] " id="number" type="number" value={pickedPackages?.length} />
                 <div>{weightSum} g</div>
                 <button onClick={() => packChoosenPackages()} type="button">pack</button>
             </div>
-            <div className="address" onClick={() => setAddressPage(prev => !prev)}>
+            <div className="flex w-[100%] text-[1rem] justify-between align-center p-1" onClick={() => setAddressPage(prev => !prev)}>
                 <div>  + Add shipping adress</div>
                 <div className="sma">{choodsenAddress && 
                 <div><p>{choodsenAddress.firstName}</p> 

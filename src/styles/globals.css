@@ -93,17 +93,7 @@ body {
 
 }
 
-.address {
 
-  text-align: right;
-  padding-right: 1rem;
-  font-size: .9rem;
-  line-height: 1.7;
-  
-    /* position: absolute;
-    top: 5%;
-    right: 0; */
-}
 
 .sma {
     font-size: .5rem;
@@ -215,8 +205,29 @@ body {
 
 
 .n {
+    color: white;
+    border-radius: 10px;
     background-color: pink;
     display: flex;
     flex-direction: column;
     position: fixed;
+    width: 90vw;
+    left: 50%;
+    right: 50%;
+    transform: translate(-50%);
+    background-color: #9b9b9b1a;
+    backdrop-filter: blur(6px);
+    background-image: linear-gradient(127deg, #0000002d 0%, #ffffff17 80%);
 }
+
+.address {
+
+    display: flex;
+
+    font-size: .9rem;
+    line-height: 1.7;
+    
+      /* position: absolute;
+      top: 5%;
+      right: 0; */
+  }
