@@ -17,7 +17,7 @@ const Packages : NextPage = () => {
     return (
         <Layout>
                {domestic?.length ?  [...domestic]?.map((pack, i) =>  
-                <SinglePackageItem storageBoxes={domestic} setStorageBoxes={setDomestic} key={i} userToken={data?.currentUser?.token as string} packid={pack.id} localtracker={pack.localtracker as string} description={pack?.description as string} status={pack.status}  />
+                <SinglePackageItem storageBoxes={domestic} createdAt={pack.createdAt} setStorageBoxes={setDomestic} key={i} userToken={data?.currentUser?.token as string} packid={pack.id} localtracker={pack.localtracker as string} description={pack?.description as string} status={pack.status}  />
               ) : <div>no Packages found</div>}
         </Layout>
       
