@@ -15,26 +15,18 @@ export default function Layout({ children } : Props) {
 
   return (
     <>
-        <div className="ent-page">
+        <section className="ent-page w-[100vw] min-h-[100vh]">
           <UpperNav />
-       
-  
-        <main className="package-page">
-            <ul className="main-menu">
-                
+         <main className="flex flex-col align-center pt-[5rem] pr-[1rem] pl-[1rem] gap-5 ">
+              <ul className="main-menu flex w-[100%] align-center justify-around">
                 {navdata.map((data, i) => <PackageNavItem key={i} title={data.title} link={data.link} active={  router.asPath === data.link  ? data.active : !data.active} /> )}
-               
-            </ul>
-            <div className="main-window">
-              <ul className='boxes'>
-               {children}
-            </ul>
-               
-
-            </div>
+              </ul>
+            <div className="w-[100%] min-h-[10vh] max-h-[60vh] overflow-y-scroll ">
+            {children}
+             </div>
         </main>
       
-        </div>
+        </section>
 
         </>
   )

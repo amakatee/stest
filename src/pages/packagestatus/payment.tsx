@@ -21,7 +21,7 @@ const Payment : NextPage = () => {
             <div key={box.id}
             onClick={() => setPackageDetail({...packageDetail, show: !packageDetail.show, id:box.id})}>
     
-             <SinglePaymentPackage packid={packageDetail.id} box={box as PackingOrder} />
+             <SinglePaymentPackage packid={packageDetail.id} box={box} />
              </div>)}
 
 

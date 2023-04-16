@@ -122,7 +122,7 @@ const Storage : NextPage = () => {
 
         createOrder({
                ownerId: data?.currentUser?.id as string,
-               packageids: ids as string[],
+               packageids: ids,
                orderno: "new order",
                weightsum: weightSum as number,
                recipient: '',
@@ -153,14 +153,16 @@ const Storage : NextPage = () => {
         <>
         {addressPage && <AddAddress setAddressPage={setAddressPage} currentUserId={data?.currentUser?.id as string} setCurrentAddressId={setCurrentAddressId}/>}
         {packingPage && <PackingPage setPackingPage={setPackingPage} pickedPackages={pickedPackages}  />}
-        <div className="fixed min-h-[3rem] top-12 bg-[white] flex">
+       
+        <Layout>
+            <div className="n ">
+            <div className=" min-h-[3rem]  bg-[white] flex">
             <div>{warningMes}</div>
                 <p>picked</p>
                 <input className="text-blue bg-[#1da1f2] " id="number" type="number" value={pickedPackages?.length} />
                 <div>{weightSum} g</div>
                 <button onClick={() => packChoosenPackages()} type="button">pack</button>
             </div>
-        <Layout>
             <div className="address" onClick={() => setAddressPage(prev => !prev)}>
                 <div>  + Add shipping adress</div>
                 <div className="sma">{choodsenAddress && 
@@ -171,11 +173,13 @@ const Storage : NextPage = () => {
                }</div>
              
             </div>
-           
+            </div>
+          
+           <ul className="flex flex-col align-center justify-between gap-3 pt-[13vh] pb-[5vh]" >
            {storageBoxes?.length ? [...storageBoxes]?.map((pack, i) =>  
                 <SinglePackageItem key={i}  packid= {pack?.id } setStorageBoxes={setStorageBoxes} storageBoxes={storageBoxes} localtracker={pack?.localtracker as string} status={pack.status} recipient={pack?.recipient as string}  billing={pack.billing as number } type={pack.type as string} weight={pack.weight as number} checked={pack?.checked as boolean} handleCheckbox={handleCheckbox} boxes={storageBoxes as Package[] | undefined} usermessage={pack?.usermessage as string}  />) 
                 : <div> no data</div>}
-
+            </ul>
              
      </Layout>
 

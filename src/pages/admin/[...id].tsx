@@ -113,13 +113,13 @@ const User : NextPage = () => {
         <main className="user-main"> 
         <div className="">
         <div className="user-token ">  {currentUser?.token.slice(0, 6)} </div>
-        {currentUser?.packingorder.map(order => <div>
+        {currentUser?.packingorder.map(order => <div key={order.id}>
         <p>{order.orderno}</p>
         <p>{order.country}</p>
        
         </div>)}
         <div>
-        {orders?.map(order => <div>{order.map(pack => <div>{pack?.map(pa => <div>{pa.weight} {pa.localtracker}</div>)}</div> )}</div>)}
+        {orders?.map((order, i) => <div key={i}>{order.map(pack => <div>{pack?.map(pa => <div key={pa.id}>{pa.weight} {pa.localtracker}</div>)}</div> )}</div>)}
         </div>
         </div>
        

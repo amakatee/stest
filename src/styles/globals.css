@@ -25,83 +25,29 @@ body {
 .ent-page {
     background-color: #000000;
     background-image: linear-gradient(127deg, #000000 0%, #434343 100%);
-    /* background-color: #000000;
-    background-image: linear-gradient(147deg, #000000 0%, #434343 74%); */
-
-    /* background-color: #000000;
-    background-image: linear-gradient(200deg, #000000 0%, #7f8c8d 74%); */
-    /* background-image: url("../../public/bj2.jpg"); */
-    width: 100vw;
-    min-height: 100vh;
     background-size: cover;
 }  
 
-.package-page {
-    
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 3rem;
-    padding: 5rem 1rem;
-    /* padding-block: 3rem;
-    padding-inline: 2rem; */
-
-}
-
 .main-menu {
-    display: flex;
     /* color: #1e1e1e; */
     color: #fff;
-    width: 100%;
-    align-items: center;
-    justify-content: space-around;
     text-transform: uppercase;
     font-size: .8rem;
     line-height: 1.8;
     letter-spacing: .2px;
     font-weight: 300;
     /* From https://css.glass */
-background: rgba(18, 22, 34, 0);
-border-radius: 16px;
-box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-backdrop-filter: blur(3px);
--webkit-backdrop-filter: blur(3px);
-border: 1px solid rgba(18, 22, 34, 0.1);
+    background: rgba(18, 22, 34, 0);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(3px);
+   -webkit-backdrop-filter: blur(3px);
+    border: 1px solid rgba(18, 22, 34, 0.1);
 
 }
 
-.main-window {
-  
-    width: 100%;
-    min-height: 10vh;
-    max-height: 50vh;
-    overflow-y: scroll;
-    color: white;
-    font-size: .8rem;
-    letter-spacing: .2px;
-    font-weight: 300;
-
-    /* From https://css.glass */
-/* From https://css.glass */
-background: rgba(18, 22, 34, 0.31);
-border-radius: 16px;
-box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-backdrop-filter: blur(2.4px);
--webkit-backdrop-filter: blur(2.4px);
-border: 1px solid rgba(18, 22, 34, 0.03);
-    
-}
 
 
-.boxes {
-    display: flex;
-    flex-direction: column;
-    padding-block: 2rem;
-
-    justify-content: space-between;
-    gap: 1rem;
-    position: relative;
-}
 
 .box {
     display: flex;
@@ -268,3 +214,9 @@ border: 1px solid rgba(18, 22, 34, 0.03);
 }
 
 
+.n {
+    background-color: pink;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+}
