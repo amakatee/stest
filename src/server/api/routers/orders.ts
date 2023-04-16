@@ -13,10 +13,8 @@ export const ordersRouter = createTRPCRouter({
         country: z.string(),
         type: z.string(),
         usermessage: z.string() ,
-        billing: z.number()
-        
-     
-        
+        billing: z.number(),
+        addressid: z.string()
         
      }))
     .mutation( async ({ ctx, input }) => {
@@ -31,7 +29,8 @@ export const ordersRouter = createTRPCRouter({
                     country: input.country,
                     type: input.type,
                     usermessage:input.usermessage ,
-                    billing: input.billing
+                    billing: input.billing,
+                    addressid: input.addressid
                    
                    
 

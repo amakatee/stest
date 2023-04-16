@@ -5,6 +5,7 @@
 html {
     scroll-behavior: smooth;
     overscroll-behavior: none;
+    
 
   }
 
@@ -15,12 +16,21 @@ html {
     }
   }
 
-
+body {
+    
+}
  
   /* border-right: 1px solid #1e1e1e; */
 
 .ent-page {
-    background-image: url("../../public/bj2.jpg");
+    background-color: #000000;
+    background-image: linear-gradient(127deg, #000000 0%, #434343 100%);
+    /* background-color: #000000;
+    background-image: linear-gradient(147deg, #000000 0%, #434343 74%); */
+
+    /* background-color: #000000;
+    background-image: linear-gradient(200deg, #000000 0%, #7f8c8d 74%); */
+    /* background-image: url("../../public/bj2.jpg"); */
     width: 100vw;
     min-height: 100vh;
     background-size: cover;
@@ -169,23 +179,39 @@ border: 1px solid rgba(18, 22, 34, 0.03);
     display: flex;
     position: fixed;
     bottom: 10px;
-    width: 80vw;
-    border-radius: 16px;
+    width: 60vw;
+    border-radius: 12px;
+    
     left: 50%;
     transform: translateX(-50%);
-     height: 10vh;
-    background-color: rgba(21, 75, 85, 0.384);
+     height: 8vh;
+    /* background-color: rgba(21, 75, 85, 0.384); */
     align-items: center;
     justify-content: space-around;
+
+    background-color: #9b9b9b1a;
+    backdrop-filter: blur(6px);
+    background-image: linear-gradient(127deg, #0000002d 0%, #ffffff17 80%);
+            
 }
 
 .menu li {
-    border: 1px solid rgba(42, 134, 150, 0.87);
-    color: rgba(42, 134, 150, 0.877);
-    padding: .5rem 1rem;
-    font-size: .7rem;
+    /* border: 1px solid rgba(42, 134, 150, 0.87);
+    color: rgba(42, 134, 150, 0.877); */
+
+
+    font-size: .8rem;
+    background-color: none;
     cursor: pointer;
     border-radius: 10px;
+    color: white;
+    box-shadow:
+  
+    0 0 20px rgba(255, 255, 255, 0.582),           
+    -1px 0 20px rgba(230, 230, 230, 0.26),       
+    1px 0 20px rgba(236, 236, 236, 0.26); 
+
+  
 
 
     
@@ -240,3 +266,5 @@ border: 1px solid rgba(18, 22, 34, 0.03);
 .form select {
     background-color: pink;
 }
+
+

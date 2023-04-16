@@ -13,8 +13,9 @@ export const addressesRouter = createTRPCRouter({
         phone: z.string(),
         zipcode: z.string(),
         country: z.string(),
-        fulladdsress: z.string(),
+        fulladdress: z.string(),
         ownerId: z.string()
+  
 
 
       })
@@ -28,8 +29,9 @@ export const addressesRouter = createTRPCRouter({
                 phone: input.phone,
                 zipcode: input.zipcode,
                 country: input.country,
-                fulladdsress: input.fulladdsress,
-                owner: { connect: {id: input.ownerId}}
+                fulladdress: input.fulladdress,
+                owner: { connect: {id: input.ownerId}},
+             
               }
           })
 
@@ -41,6 +43,25 @@ export const addressesRouter = createTRPCRouter({
   getAllAddresses: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.address.findMany();
   }),
+
+  getAddressById: publicProcedure
+  .input(
+    z.object({
+      id: z.string()
+    })
+  )
+  .query(async({ctx, input}) => {
+    try {
+      return await ctx.prisma.address.findFirst({ 
+        where: {
+          id: input.id
+        }
+      })
+    } catch(err) {
+      console.log(err)
+    }
+  }
+  )
 
  
 });

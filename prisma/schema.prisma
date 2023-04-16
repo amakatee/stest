@@ -28,7 +28,7 @@ model Address {
    phone      String?
    zipcode    String?
    country String?
-   fulladdsress String?
+   fulladdress String?
    
 }
 
@@ -69,6 +69,7 @@ model PackingOrder {
   country    String?
   type       String?
   usermessage  String? 
+  addressid   String?
   
  
     

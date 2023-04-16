@@ -20,8 +20,14 @@ const Storage : NextPage = () => {
     const d  = useRouter()
     console.log(d)
     const data = useStateContext()
+    const [warningMes, setWarningMes] = useState("")
     const [packingPage, setPackingPage] = useState(false)
     const [addressPage, setAddressPage] = useState(false)
+    const [currentAddressId, setCurrentAddressId] = useState("")
+    const {data: choodsenAddress} = api.addresses.getAddressById.useQuery({
+        id:currentAddressId
+    })
+   
    
     const initialData = data?.storagePackages
     console.log(data?.currentUser)
@@ -80,9 +86,8 @@ const Storage : NextPage = () => {
 
      const pickedPackages =  storageBoxes?.filter(box => box.checked === true)
         const packWeight = pickedPackages?.map(box => box.weight)
-        console.log(packWeight)
         const weightSum = packWeight?.reduce((total , item ) => (total as number)  + (item as number), 0 )
-         console.log(weightSum)
+   
  
 
     const handleCheckbox = (e: React.ChangeEvent<HTMLInputElement> , id: string)=> {
@@ -99,6 +104,17 @@ const Storage : NextPage = () => {
     
  
     const packChoosenPackages = () => {
+        if(!currentAddressId) {
+            setWarningMes("no address")
+            console.log('no address choosen ')
+            return
+        }
+        if(!pickedPackages?.length) {
+            setWarningMes("no packages Choosen")
+            return
+        }
+       
+        setWarningMes("")
         setStorageBoxes(storageBoxes?.filter((box) =>  !pickedPackages?.includes(box)
         ))
         const ids = pickedPackages?.map(pack => pack.id)
@@ -113,7 +129,8 @@ const Storage : NextPage = () => {
                country: '',
                type: '',
                usermessage:'' ,
-               billing: 0
+               billing: 0,
+               addressid: currentAddressId
                    
              })
      
@@ -134,30 +151,28 @@ const Storage : NextPage = () => {
 
     return (
         <>
-        {addressPage && <AddAddress setAddressPage={setAddressPage} currentUserId={data?.currentUser?.id as string}/>}
+        {addressPage && <AddAddress setAddressPage={setAddressPage} currentUserId={data?.currentUser?.id as string} setCurrentAddressId={setCurrentAddressId}/>}
         {packingPage && <PackingPage setPackingPage={setPackingPage} pickedPackages={pickedPackages}  />}
-        <div className="fixed min-h-[3rem] top-12 bg-[white] flex ">
+        <div className="fixed min-h-[3rem] top-12 bg-[white] flex">
+            <div>{warningMes}</div>
                 <p>picked</p>
                 <input className="text-blue bg-[#1da1f2] " id="number" type="number" value={pickedPackages?.length} />
                 <div>{weightSum} g</div>
                 <button onClick={() => packChoosenPackages()} type="button">pack</button>
             </div>
         <Layout>
-            {/* <div className="">
-                <p>picked</p>
-                <input className="text-blue bg-[#1da1f2] " id="number" type="number" value={pickedPackages?.length} />
-                <div>{weightSum} g</div>
-                <button onClick={() => packChoosenPackages()} type="button">pack</button>
-            </div> */}
             <div className="address" onClick={() => setAddressPage(prev => !prev)}>
                 <div>  + Add shipping adress</div>
-                <div className="sma">no address choose</div>
+                <div className="sma">{choodsenAddress && 
+                <div><p>{choodsenAddress.firstName}</p> 
+                <p>{choodsenAddress.secondName}</p>
+                <p>{choodsenAddress.country}</p>
+                </div>
+               }</div>
              
             </div>
            
            {storageBoxes?.length ? [...storageBoxes]?.map((pack, i) =>  
-              
-                 
                 <SinglePackageItem key={i}  packid= {pack?.id } setStorageBoxes={setStorageBoxes} storageBoxes={storageBoxes} localtracker={pack?.localtracker as string} status={pack.status} recipient={pack?.recipient as string}  billing={pack.billing as number } type={pack.type as string} weight={pack.weight as number} checked={pack?.checked as boolean} handleCheckbox={handleCheckbox} boxes={storageBoxes as Package[] | undefined} usermessage={pack?.usermessage as string}  />) 
                 : <div> no data</div>}
 

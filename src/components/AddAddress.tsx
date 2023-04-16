@@ -1,10 +1,12 @@
 import { useRouter } from 'next/router'
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { api } from '../utils/api'
 import type {Address } from '@prisma/client'
 import { nanoid } from 'nanoid'
 import { useStateContext } from '../context/AuthContext'
+import { previousDay } from 'date-fns'
+
 // type Address = {
 //     firstName: string,
 //     secondName: string,
@@ -17,13 +19,15 @@ import { useStateContext } from '../context/AuthContext'
 
 type Props = {
     setAddressPage: React.Dispatch<React.SetStateAction<boolean>>,
-    currentUserId: string
+    currentUserId: string,
+    setCurrentAddressId: (value: React.SetStateAction<string>) => void
 }
 
-const AddAdress = ({setAddressPage,currentUserId} : Props) : ReactElement => {
-
+const AddAdress = ({setAddressPage,currentUserId, setCurrentAddressId} : Props) : ReactElement => {
+    const ctx = api.useContext();
     const {data: addresses} = api.addresses.getAllAddresses.useQuery()
     const {mutate: addNewAddress} = api.addresses.createAddress.useMutation()
+    const [addressList, setAddressList] = useState<Address[] | undefined>([])
     const [addAddress, setAddAddress ] = useState(true)
     const [formData, setFormData] = useState<Address>({
         id:nanoid(),
@@ -34,11 +38,17 @@ const AddAdress = ({setAddressPage,currentUserId} : Props) : ReactElement => {
         phone: "",
         zipcode: "",
         country: "",
-        fulladdsress: ""
+        fulladdress: ""
 
     })
 
     console.log(currentUserId)
+    useEffect(() => {
+        setAddressList(addresses)
+
+    }, [addresses])
+    
+    
 
     return (
         <section className='fixed w-full h-full bg-white text-black z-20 '>
@@ -49,7 +59,15 @@ const AddAdress = ({setAddressPage,currentUserId} : Props) : ReactElement => {
                 <button onClick={() => setAddAddress(prev => !prev)} type='button'>Add new Address</button>
                  {addAddress && <form onSubmit={(e) => {
                      e.preventDefault()
-                     console.log(formData)
+                     const newAddress = {
+                        ownerId: currentUserId,
+                        firstName: formData.firstName as string,
+                        secondName: formData.secondName as string,
+                        phone: formData.phone as string, 
+                        zipcode: formData.zipcode as string ,
+                        country: formData.country as string,
+                        fulladdress: formData.fulladdress as string
+                     }
                      addNewAddress({
                         ownerId: currentUserId,
                         firstName: formData.firstName as string,
@@ -57,9 +75,12 @@ const AddAdress = ({setAddressPage,currentUserId} : Props) : ReactElement => {
                         phone: formData.phone as string, 
                         zipcode: formData.zipcode as string ,
                         country: formData.country as string,
-                        fulladdsress: formData.fulladdsress as string
+                        fulladdress: formData.fulladdress as string,
 
                      })
+                     setAddressList([...(addressList || []), newAddress as Address])
+                    
+
 
                  }}>
                      <input 
@@ -100,8 +121,8 @@ const AddAdress = ({setAddressPage,currentUserId} : Props) : ReactElement => {
                      <input 
                      type="text"
                      placeholder='full address'
-                     value={formData.fulladdsress as string}
-                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({...formData, fulladdsress: e.target.value}) }
+                     value={formData.fulladdress as string}
+                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({...formData, fulladdress: e.target.value}) }
 
                      />
                      <button type='submit'> save address</button>
@@ -109,7 +130,11 @@ const AddAdress = ({setAddressPage,currentUserId} : Props) : ReactElement => {
                      </form>}
             </header>
             <main>
-               { addresses?.length ? addresses?.map(address => <div>{address.country}</div>) : <div>No addresses yet</div>}
+               { addressList?.length ? [...addressList]?.map(address => <div key={address.id} onClick={() => 
+                {
+                    setAddressPage(false)
+                    setCurrentAddressId(address.id)}
+                }>{address.country}</div>) : <div>No addresses yet</div>}
             </main>
 
         </section>

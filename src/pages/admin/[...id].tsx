@@ -19,11 +19,14 @@ import NumberInput from '../../components/elements/NumberInput'
 
 const User : NextPage = () => {
     const {data: allUsers} = api?.users?.allUsers?.useQuery()
+  
     const {mutate: addPackage} = api?.packages?.updatePackage.useMutation({
         onSuccess: (t: any) => {
             console.log(t)
         }
     })
+
+    // const { data: findPackgaeById} = api?.packages?.getPackageById?.useQuery()
 
 
 
@@ -38,6 +41,7 @@ const User : NextPage = () => {
     const currentId = query.id && query.id[0]
     const currentUser = allUsers?.find(user => user.id === currentId)
 
+
     const [packages , setPackages] = useState<Package[] | undefined>([])
 
     useEffect(() => {
@@ -48,7 +52,19 @@ const User : NextPage = () => {
 
 
    
+    const orderPackages = currentUser?.packingorder.map(pack => pack.packageids)
     console.log(currentUser?.packingorder)
+    
+  
+   
+
+   const orders = orderPackages?.map(orderlist => {
+        return orderlist.map(id => {
+            return currentUser?.package.filter(pack => pack.id === id)
+        })
+    })
+
+  
     
     const changeStatus = (id: string, newStatus: PackageStatus) => {
         addPackage({
@@ -95,11 +111,18 @@ const User : NextPage = () => {
      
     return (
         <main className="user-main"> 
-        
+        <div className="">
         <div className="user-token ">  {currentUser?.token.slice(0, 6)} </div>
-
-        {/* <div>{currentUser?.packingorder?.map(order => <div>
-        </div>)}</div> */}
+        {currentUser?.packingorder.map(order => <div>
+        <p>{order.orderno}</p>
+        <p>{order.country}</p>
+       
+        </div>)}
+        <div>
+        {orders?.map(order => <div>{order.map(pack => <div>{pack?.map(pa => <div>{pa.weight} {pa.localtracker}</div>)}</div> )}</div>)}
+        </div>
+        </div>
+       
         <div className="forms">
 
             {formData?.map(pack => <form className="form" key={pack.id} onSubmit={(e:  React.FormEvent<HTMLFormElement>) => getPackageData(e, pack.id)}>

@@ -18,15 +18,11 @@ export const packagesRouter = createTRPCRouter({
     }))
     .mutation( async({ctx, input}) => {
         try {
-        
-           
             return await ctx.prisma.package.create({
                 data: {
                     localtracker: input.localtracker,
                     description: input.description,
                     owner: { connect: {id: input.ownerId}}
-          
-                    
                 }
             })
 
@@ -233,6 +229,25 @@ export const packagesRouter = createTRPCRouter({
                 id: input.id
             }
         })
+    }),
+    getPackageById:publicProcedure
+    .input(
+        z.object({
+            id:z.string()
+        })
+    )
+    .query(async ({ctx, input}) => {
+        try {
+            return await ctx.prisma.package.findFirst({
+                where: {
+                    id: input.id
+                }
+            })
+
+
+        }catch(err) {
+            console.log(err)
+        }
     })
 
     
