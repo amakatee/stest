@@ -1,34 +1,27 @@
 import { useRouter } from 'next/router'
 import React, { ReactElement, useEffect, useState } from 'react'
-import Link from 'next/link'
 import { api } from '../utils/api'
 import type {Address } from '@prisma/client'
 import { nanoid } from 'nanoid'
-import { useStateContext } from '../context/AuthContext'
-import { previousDay } from 'date-fns'
-
-// type Address = {
-//     firstName: string,
-//     secondName: string,
-//     phone: string,
-//     zipcode: string,
-//     country: string,
-//     fulladdress: string
-// }
+import AddressCustomInput from '../components/elements/AddressCustomInput'
+import SubmitButton from '../components/elements/SubmitButton'
+import {IoMdClose} from 'react-icons/io'
 
 
 type Props = {
     setAddressPage: React.Dispatch<React.SetStateAction<boolean>>,
     currentUserId: string,
-    setCurrentAddressId: (value: React.SetStateAction<string>) => void
+    setCurrentAddressId: (value: React.SetStateAction<string>) => void,
+    addressList: Address[] | undefined,
+    setAddressList: React.Dispatch<React.SetStateAction<Address[] | undefined>>
 }
 
-const AddAdress = ({setAddressPage,currentUserId, setCurrentAddressId} : Props) : ReactElement => {
+const AddAdress = ({addressList, setAddressList, setAddressPage,currentUserId, setCurrentAddressId} : Props) : ReactElement => {
     const ctx = api.useContext();
     const {data: addresses} = api.addresses.getAllAddresses.useQuery()
     const {mutate: addNewAddress} = api.addresses.createAddress.useMutation()
-    const [addressList, setAddressList] = useState<Address[] | undefined>([])
-    const [addAddress, setAddAddress ] = useState(true)
+    // const [addressList, setAddressList] = useState<Address[] | undefined>([])
+    const [addAddress, setAddAddress ] = useState(false)
     const [formData, setFormData] = useState<Address>({
         id:nanoid(),
         createdAt: new Date,
@@ -42,7 +35,7 @@ const AddAdress = ({setAddressPage,currentUserId, setCurrentAddressId} : Props) 
 
     })
 
-    console.log(currentUserId)
+
     useEffect(() => {
         setAddressList(addresses)
 
@@ -51,13 +44,15 @@ const AddAdress = ({setAddressPage,currentUserId, setCurrentAddressId} : Props) 
     
 
     return (
-        <section className='fixed w-full h-full bg-white text-black z-20 '>
-            hello addrtess
+        <section className='fixed w-full h-full bg-[#0d171b] text-white z-20 overflow-scroll py-5'>
+        
 
-            <p onClick={() => setAddressPage(prev => !prev)}>close</p>
-            <header>
-                <button onClick={() => setAddAddress(prev => !prev)} type='button'>Add new Address</button>
-                 {addAddress && <form onSubmit={(e) => {
+            <p className='w-full flex justify-end pr-4 mb-3' onClick={() => setAddressPage(prev => !prev)}><IoMdClose size={25}/></p>
+            <header className='flex flex-col items-center gap-4'>
+                <button onClick={() => setAddAddress(prev => !prev)} type='button' className='text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 shadow-lg shadow-teal-500/50 dark:shadow-lg dark:shadow-teal-800/80 font-medium rounded-lg text-sm px-4 py-1.5 text-center text-[#18383c] uppercase mt-2 mb-2'>+ Add new Address</button>
+                 {addAddress && <form
+                 className=''
+                     onSubmit={(e) => {
                      e.preventDefault()
                      const newAddress = {
                         ownerId: currentUserId,
@@ -79,62 +74,37 @@ const AddAdress = ({setAddressPage,currentUserId, setCurrentAddressId} : Props) 
 
                      })
                      setAddressList([...(addressList || []), newAddress as Address])
+                     setAddAddress(prev => !prev)
                     
 
 
                  }}>
-                     <input 
-                     type="text"
-                     placeholder='firstName'
-                     value={formData.firstName as string}
-                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({...formData, firstName: e.target.value}) }
-
-                     />
-                     <input 
-                     type="text"
-                     placeholder='second name'
-                     value={formData.secondName as string}
-                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({...formData, secondName: e.target.value}) }
-        
-                     />
-                     <input 
-                     type="text"
-                     placeholder='phone'
-                     value={formData.phone as string}
-                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({...formData, phone: e.target.value}) }
-
-                     />
-                     <input 
-                     type="text"
-                     placeholder='zip'
-                     value={formData.zipcode as string}
-                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({...formData, zipcode: e.target.value}) }
-
-                     />
-                      <input 
-                     type="text"
-                     placeholder='country'
-                     value={formData.country as string}
-                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({...formData, country: e.target.value}) }
-
-                     />
-                     <input 
-                     type="text"
-                     placeholder='full address'
-                     value={formData.fulladdress as string}
-                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({...formData, fulladdress: e.target.value}) }
-
-                     />
-                     <button type='submit'> save address</button>
-                     heres  an address 
+                     <AddressCustomInput  label="First Name" placeholder='First Name' name="firstName" setAddressForm={setFormData} addressForm={formData} />
+                     <AddressCustomInput  label="Second Name" placeholder='Second Name' name="secondName" setAddressForm={setFormData} addressForm={formData} />
+                     <AddressCustomInput  label="Phone" placeholder='Phone' name="phone" setAddressForm={setFormData} addressForm={formData} />
+                     <AddressCustomInput  label="Zipcode" placeholder='Zipcode' name="zipcode" setAddressForm={setFormData} addressForm={formData} />
+                     <AddressCustomInput  label="Country" placeholder='Country' name="country" setAddressForm={setFormData} addressForm={formData} />
+                     <AddressCustomInput  label="Full Address" placeholder='Full Address' name="fulladdress" setAddressForm={setFormData} addressForm={formData} />
+                     
+                     <SubmitButton label="Save Address" />                    
                      </form>}
             </header>
-            <main>
-               { addressList?.length ? [...addressList]?.map(address => <div key={address.id} onClick={() => 
+            <main className='flex flex-col  w-[90vw] m-auto  justify-around gap-3 pt-5'>
+               { addressList?.length ? [...addressList]?.map(address =>
+                <div key={address.id} onClick={() => 
                 {
                     setAddressPage(false)
                     setCurrentAddressId(address.id)}
-                }>{address.country}</div>) : <div>No addresses yet</div>}
+                }
+                className=" bg-[#132b3a93] p-3 rounded-lg"
+                >   
+                    <p className='text-xs'><span className='font-bold'>First Name:  </span>{address.firstName}</p>
+                    <p className='text-sm'><span>Second Name :</span>{address.secondName}</p>
+                    <p className='text-sm'><span>Address :</span>{address.zipcode}</p>
+                    <p className='text-sm'><span>Phone :</span>{address.phone}</p>
+                    <p className='text-sm'><span>Country :</span>{address.country}</p>
+                    <p className='text-sm'><span>Full Address :</span>{address.fulladdress}</p>
+                    </div>) : <div>No addresses yet</div>}
             </main>
 
         </section>
