@@ -28,12 +28,13 @@ const Payment : NextPage = () => {
           <ul className="flex flex-col align-center justify-between gap-3 min-h-[20vh]  max-h-[70vh] overflow-scroll pb-[10vh]" >
             {data?.currentUser?.packingorder.length && data?.currentUser?.packingorder?.map((box) => 
             <div key={box.id}
-                  onClick={() => setPackageDetail({...packageDetail, show: !packageDetail.show, id:box.id})}>
-                   <SinglePaymentPackage packid={packageDetail.id} box={box} />
+                  //  onClick={() => setPackageDetail({...packageDetail, id:box.id})}
+                  >
+                   <SinglePaymentPackage packid={packageDetail.id} box={box} packageDetail={packageDetail} setPackageDetail={setPackageDetail}  />
              </div>)}
             </ul>
 
-            {packageDetail.show && <PackingPageDetail id={packageDetail.id} />}
+            {packageDetail.show && <PackingPageDetail id={packageDetail.id}   packageDetail={packageDetail} setPackageDetail={setPackageDetail} />}
              
           
        </Layout>

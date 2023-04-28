@@ -76,6 +76,22 @@ background-size: cover;
 
 
 
+.page-detail {
+    /* color: #1e1e1e; */
+    color: #fff;
+
+    font-size: .8rem;
+    line-height: 1.8;
+    letter-spacing: .2px;
+    font-weight: 300;
+    background: rgba(18, 22, 34, 0.842);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(3px);
+   -webkit-backdrop-filter: blur(3px);
+    border: 1px solid rgba(18, 22, 34, 0.1);
+
+}
 
 
 
@@ -210,3 +226,14 @@ background-size: cover;
     background-color: blue;
 
 }
+
+.custom-text {
+    letter-spacing: .3px;
+    font-size: .9rem;
+}
+
+.pack-style {
+    border: 1px solid white;
+    border-radius: 5px;
+ 
+ }

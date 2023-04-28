@@ -1,3 +1,5 @@
+import { AiOutlineConsoleSql } from "react-icons/ai";
+import { BsCartX } from "react-icons/bs";
 import { z } from "zod";
 
 import { createTRPCRouter, publicProcedure } from "../trpc";
@@ -65,4 +67,23 @@ export const ordersRouter = createTRPCRouter({
       console.log(e)
     }
 }),
+
+  deleteOrderById: publicProcedure
+  .input(
+    z.object({
+      id: z.string()
+    })
+  )
+  .mutation(async({input, ctx}) => {
+    try{ 
+      return await ctx.prisma.packingOrder.delete({
+        where: {
+          id:input.id
+        }
+      })
+
+    } catch(err) {
+      console.log(err)
+    }
+  })
 });
