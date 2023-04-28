@@ -54,7 +54,7 @@ const PackingPageDetail = ({id, packageDetail, setPackageDetail} : Props) : Reac
 
             <div className='flex flex-col gap-3   '>
               {existingPacks?.map(pack => 
-              <div className='flex flex-col pack-style px-4 py-3 '>
+              <div key={pack.id} className='flex flex-col pack-style px-4 py-3 '>
                 <p><span>Local tracking code: </span>{pack.localtracker}</p>
                 <p><span>Weight: </span>{pack.weight} g</p>
 
